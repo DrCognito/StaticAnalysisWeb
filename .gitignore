@@ -111,3 +111,6 @@ setup.env
 
 #static files
 static/
+
+#local run file
+local.py
