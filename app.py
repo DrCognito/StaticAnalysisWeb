@@ -25,7 +25,7 @@ def get_metadata_locations(path: Path) -> dict:
     return output
 
 
-metadata_dict = get_metadata_locations('./static/plots')
+metadata_dict = get_metadata_locations(Path('./static/plots'))
 data_summary_dir = Path('./static/data_summary')
 
 
