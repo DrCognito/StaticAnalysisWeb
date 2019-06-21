@@ -5,15 +5,14 @@ from os import environ
 from pathlib import Path
 from urllib.parse import unquote
 
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from flask import Flask, abort, render_template, url_for
-from flask_frozen import Freezer
-from config import PROJECT_ROOT
+# from config import PROJECT_ROOT
 
-load_dotenv(dotenv_path="setup.env")
+# load_dotenv(dotenv_path="setup.env")
 app = Flask(__name__)
-app.config.from_pyfile('config.py')
-freezer = Freezer(app)
+# app.config.from_pyfile('config.py')
+# freezer = Freezer(app)
 
 
 def get_metadata_locations(path: Path) -> dict:
@@ -185,8 +184,8 @@ def index():
     for team in metadata_dict:
         url = url_for("team", team=team)
         navigators.append((team, url))
-    navigators.append((None, None))
-    navigators.append(("Summaries", url_for("data_summary")))
+    # navigators.append((None, None))
+    # navigators.append(("Summaries", url_for("data_summary")))
     return render_template('index.j2',
                            navigators=navigators)
 
@@ -332,21 +331,12 @@ def report(team, dataset='default'):
                            summary=summary,
                            team=team)
 
-@freezer.register_generator
+
 def team():
     for p in metadata_dict.keys():
         yield {'team': p}
 
-@freezer.register_generator
+
 def report():
     for p in metadata_dict.keys():
         yield {'team': p}
-
-
-
-if __name__ == '__main__':
-    if len(sys.argv) > 1 and sys.argv[1] == 'build':
-        print("Exporting to {}".format(PROJECT_ROOT))
-        freezer.freeze()
-        print("Exporting to {}".format(PROJECT_ROOT))
-    app.run(port=8000)
