@@ -19,7 +19,7 @@ def get_metadata_locations(path: Path) -> dict:
     output = {}
     metadata_paths = path.glob('**/meta_data.json')
     for p in metadata_paths:
-        name = str(p.parent).split('\\')[-1]
+        name = p.parts[-2]
         output[name] = p
 
     return output
