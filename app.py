@@ -25,8 +25,8 @@ def get_metadata_locations(path: Path) -> dict:
     return output
 
 
-metadata_dict = get_metadata_locations(Path(environ['PLOT_DIRECTORY']))
-data_summary_dir = Path(environ['DATA_SUMMARY_DIRECTORY'])
+metadata_dict = get_metadata_locations('./static/plots')
+data_summary_dir = Path('./static/data_summary')
 
 
 def url_path(path_in: str, endpoint='static'):
