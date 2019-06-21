@@ -1,0 +1,13 @@
+{% extends "base.j2" %}
+
+{% block sidebar %}
+    {% with navigators=navigators %}
+        {% include "sidebar.j2" %}
+    {% endwith %}
+{% endblock sidebar %}
+{% block content %}
+<div class="main">
+<h1>{{team}}</h1><br>
+{% block vis %}{% endblock vis %}
+</div>
+{% endblock content %}
