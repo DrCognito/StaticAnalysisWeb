@@ -5,11 +5,11 @@ from os import environ
 from pathlib import Path
 from urllib.parse import unquote
 
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 from flask import Flask, abort, render_template, url_for
 # from config import PROJECT_ROOT
 
-load_dotenv(dotenv_path="setup.env")
+#load_dotenv(dotenv_path="setup.env")
 app = Flask(__name__)
 # app.config.from_pyfile('config.py')
 # freezer = Freezer(app)
