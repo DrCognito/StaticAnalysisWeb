@@ -7,8 +7,9 @@ name = "pypi"
 
 [packages]
 
-Flask = "*"
-"Jinja2" = "*"
+flask = "*"
+"jinja2" = "*"
+python-dotenv = "*"
 
 
 [dev-packages]
