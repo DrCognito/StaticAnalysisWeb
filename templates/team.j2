@@ -1,7 +1,7 @@
 {% extends "base.j2" %}
 
 {% block sidebar %}
-    {% with navigators=navigators %}
+    {% with navigators=navigators, dataset_list=dataset_list, team=team, dataset_list=dataset_list%}
         {% include "sidebar.j2" %}
     {% endwith %}
 {% endblock sidebar %}

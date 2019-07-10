@@ -52,6 +52,11 @@ def get_team_nav(team, dataset):
     '''
     navigators = [("Back", url_for("index"))]
     navigators += [(team, url_for("team", team=team, dataset=dataset))]
+    # if len(metadata_dict[team]['sets']) > 1:
+    #     navigators += [(None, "__dataset__")]
+    # else:
+    #     navigators += [(metadata_dict[team]['sets'][0], None)]
+    navigators += [(None, "__dataset__")]
     navigators += [("DIRE", None)]
     navigators += [("Drafts", url_for("serve_plots", team=team,
                     side="dire", plot="draft", dataset=dataset))]
@@ -232,6 +237,7 @@ def team(team, dataset):
                                navigators=navigators,
                                replays=replay_list,
                                team=team,
+                               dataset_list=metadata_dict[team]['sets'],
                                winrates=data['stat_win_rate'])
 
 
