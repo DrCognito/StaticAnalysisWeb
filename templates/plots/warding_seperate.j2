@@ -1,0 +1,10 @@
+{% extends "team.j2" %}
+{% block vis %}
+{% if plots['ward_plots_separate'] is not none %}
+<h2>Wards</h2><br>
+    {% for replay_id, plot in plots['ward_plots_separate'].items() %}
+        <h2>{{replay_id}}</h2><br>
+        <img src={{url_for('static', filename=plot)}}><br>
+    {% endfor %}
+{% endif %}
+{% endblock vis %}

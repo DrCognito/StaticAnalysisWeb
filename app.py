@@ -60,8 +60,11 @@ def get_team_nav(team, dataset):
     navigators += [("DIRE", None)]
     navigators += [("Drafts", url_for("serve_plots", team=team,
                     side="dire", plot="draft", dataset=dataset))]
+    # Change plot to 'wards' for normal aggregate ward plots
     navigators += [("Wards", url_for("serve_plots", team=team,
-                    side="dire", plot="wards", dataset=dataset))]
+                    side="dire", plot="wards_seperate", dataset=dataset))]
+    # navigators += [("Wards Per Replay", url_for("serve_plots", team=team,
+    #                 side="dire", plot="wards_seperate", dataset=dataset))]
     navigators += [("Positioning", url_for("serve_plots", team=team,
                     side="dire", plot="positioning", dataset=dataset))]
     navigators += [("Smokes", url_for("serve_plots", team=team,
@@ -72,8 +75,11 @@ def get_team_nav(team, dataset):
     navigators += [("RADIANT", None)]
     navigators += [("Drafts", url_for("serve_plots", team=team,
                     side="radiant", plot="draft", dataset=dataset))]
+    # Change plot to 'wards' for normal aggregate ward plots
     navigators += [("Wards", url_for("serve_plots", team=team,
-                    side="radiant", plot="wards", dataset=dataset))]
+                    side="radiant", plot="wards_seperate", dataset=dataset))]
+    # navigators += [("Wards Per Replay", url_for("serve_plots", team=team,
+    #                 side="radiant", plot="wards_seperate", dataset=dataset))]
     navigators += [("Positioning", url_for("serve_plots", team=team,
                     side="radiant", plot="positioning", dataset=dataset))]
     navigators += [("Smokes", url_for("serve_plots", team=team,
@@ -112,6 +118,7 @@ def get_nav_report():
 
 
 def get_team_summary(team, dataset='default') -> dict:
+    update_meta_dict()
     '''Returns a dictionary of summary plots with url_for links'''
     with open(Path(metadata_dict[team]['path']), 'r') as file:
         json_file = json_load(file)
@@ -135,7 +142,7 @@ def get_team_summary(team, dataset='default') -> dict:
 def render_plot_template(team, side, plot, dataset='default'):
     if side not in ['dire', 'radiant']:
         abort(404)
-    if plot not in ['draft', 'wards', 'positioning', 'smoke', 'scan']:
+    if plot not in ['draft', 'wards', 'positioning', 'smoke', 'scan', 'wards_seperate']:
         abort(404)
 
     with open(Path(metadata_dict[team]['path']), 'r') as file:
@@ -163,6 +170,16 @@ def render_plot_template(team, side, plot, dataset='default'):
                                    data['plot_ward_{}'.format(side)]]
 
             return render_template('plots/warding.j2',
+                                   plots=plots,
+                                   navigators=navigators,
+                                   team=team)
+        if plot == 'wards_seperate':
+
+            #plots["ward_plots_separate"] = data['plot_ward_names']
+            plots["ward_plots_separate"] = {k: 'plots/' + v.replace("\\", "/")
+                for k, v in data['wards_{}'.format(side)].items()}
+
+            return render_template('plots/warding_seperate.j2',
                                    plots=plots,
                                    navigators=navigators,
                                    team=team)
@@ -281,6 +298,7 @@ def data_summary():
 @app.route("/<string:team>/<string:dataset>/<string:side>/<string:plot>.html")
 def serve_plots(team, dataset, side, plot):
     team = unquote(team)
+    update_meta_dict()
     if team not in metadata_dict:
         abort(404)
     return render_plot_template(team, side, plot, dataset=dataset)
