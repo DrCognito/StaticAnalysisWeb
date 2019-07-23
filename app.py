@@ -13,7 +13,7 @@ from flask import Flask, abort, render_template, url_for
 app = Flask(__name__)
 # app.config.from_pyfile('config.py')
 # freezer = Freezer(app)
-
+current_dir = Path.cwd()
 
 def get_metadata_locations(path: Path) -> dict:
     output = {}
@@ -120,7 +120,7 @@ def get_nav_report():
 def get_team_summary(team, dataset='default') -> dict:
     update_meta_dict()
     '''Returns a dictionary of summary plots with url_for links'''
-    with open(Path(metadata_dict[team]['path']), 'r') as file:
+    with open(current_dir / metadata_dict[team]['path'], 'r') as file:
         json_file = json_load(file)
 
         if dataset not in json_file:
@@ -145,7 +145,7 @@ def render_plot_template(team, side, plot, dataset='default'):
     if plot not in ['draft', 'wards', 'positioning', 'smoke', 'scan', 'wards_seperate']:
         abort(404)
 
-    with open(Path(metadata_dict[team]['path']), 'r') as file:
+    with open(current_dir / metadata_dict[team]['path'], 'r') as file:
         json_file = json_load(file)
 
         if dataset not in json_file:
@@ -237,7 +237,7 @@ def team(team, dataset):
         abort(404)
     if dataset not in metadata_dict[team]['sets']:
         abort(404)
-    with open(Path(metadata_dict[team]['path']), 'r') as file:
+    with open(current_dir / metadata_dict[team]['path'], 'r') as file:
         json_file = json_load(file)
 
         if dataset not in json_file:
