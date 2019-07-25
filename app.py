@@ -1,19 +1,15 @@
-import sys
 from itertools import zip_longest
 from json import load as json_load
-from os import environ
 from pathlib import Path
 from urllib.parse import unquote
-
-#from dotenv import load_dotenv
 from flask import Flask, abort, render_template, url_for
-# from config import PROJECT_ROOT
+import plot_routes
 
-#load_dotenv(dotenv_path="setup.env")
+
 app = Flask(__name__)
-# app.config.from_pyfile('config.py')
-# freezer = Freezer(app)
+app.register_blueprint(plot_routes.plot_routes)
 current_dir = Path.cwd()
+
 
 def get_metadata_locations(path: Path) -> dict:
     output = {}
@@ -33,7 +29,7 @@ def update_meta_dict(index: Path = ('./index.json')):
         global metadata_dict
         metadata_dict = json_load(f)
 
-    return
+    return metadata_dict
 
 
 data_summary_dir = Path('./static/data_summary')
@@ -58,34 +54,34 @@ def get_team_nav(team, dataset):
     #     navigators += [(metadata_dict[team]['sets'][0], None)]
     navigators += [(None, "__dataset__")]
     navigators += [("DIRE", None)]
-    navigators += [("Drafts", url_for("serve_plots", team=team,
-                    side="dire", plot="draft", dataset=dataset))]
+    navigators += [("Drafts", url_for("plots.draft", team=team,
+                    side="dire", dataset=dataset))]
     # Change plot to 'wards' for normal aggregate ward plots
-    navigators += [("Wards", url_for("serve_plots", team=team,
-                    side="dire", plot="wards_seperate", dataset=dataset))]
-    # navigators += [("Wards Per Replay", url_for("serve_plots", team=team,
-    #                 side="dire", plot="wards_seperate", dataset=dataset))]
-    navigators += [("Positioning", url_for("serve_plots", team=team,
-                    side="dire", plot="positioning", dataset=dataset))]
-    navigators += [("Smokes", url_for("serve_plots", team=team,
-                    side="dire", plot="smoke", dataset=dataset))]
-    navigators += [("Scans", url_for("serve_plots", team=team,
-                    side="dire", plot="scan", dataset=dataset))]
+    navigators += [("Wards", url_for("plots.wards", team=team,
+                    side="dire", dataset=dataset))]
+    navigators += [("Wards2", url_for("plots.wards_separate", team=team,
+                    side="dire", dataset=dataset))]
+    navigators += [("Positioning", url_for("plots.positioning", team=team,
+                    side="dire", dataset=dataset))]
+    navigators += [("Smokes", url_for("plots.smoke", team=team,
+                    side="dire", dataset=dataset))]
+    navigators += [("Scans", url_for("plots.scan", team=team,
+                    side="dire", dataset=dataset))]
 
     navigators += [("RADIANT", None)]
-    navigators += [("Drafts", url_for("serve_plots", team=team,
-                    side="radiant", plot="draft", dataset=dataset))]
+    navigators += [("Drafts", url_for("plots.draft", team=team,
+                    side="radiant", dataset=dataset))]
     # Change plot to 'wards' for normal aggregate ward plots
-    navigators += [("Wards", url_for("serve_plots", team=team,
-                    side="radiant", plot="wards_seperate", dataset=dataset))]
-    # navigators += [("Wards Per Replay", url_for("serve_plots", team=team,
-    #                 side="radiant", plot="wards_seperate", dataset=dataset))]
-    navigators += [("Positioning", url_for("serve_plots", team=team,
-                    side="radiant", plot="positioning", dataset=dataset))]
-    navigators += [("Smokes", url_for("serve_plots", team=team,
-                    side="radiant", plot="smoke", dataset=dataset))]
-    navigators += [("Scans", url_for("serve_plots", team=team,
-                    side="radiant", plot="scan", dataset=dataset))]
+    navigators += [("Wards", url_for("plots.wards", team=team,
+                    side="radiant", dataset=dataset))]
+    navigators += [("Wards2", url_for("plots.wards_separate", team=team,
+                    side="radiant", dataset=dataset))]
+    navigators += [("Positioning", url_for("plots.positioning", team=team,
+                    side="radiant", dataset=dataset))]
+    navigators += [("Smokes", url_for("plots.smoke", team=team,
+                    side="radiant", dataset=dataset))]
+    navigators += [("Scans", url_for("plots.scan", team=team,
+                    side="radiant", dataset=dataset))]
 
     navigators += [(None, None)]
     navigators += [("Summary", url_for("summary", team=team, dataset=dataset))]
