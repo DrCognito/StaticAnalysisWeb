@@ -265,7 +265,9 @@ def summary(team, dataset='default'):
     return render_template('plots/summary.j2',
                            navigators=navigators,
                            summary=summary,
-                           team=team)
+                           team=team,
+                           dataset_list=metadata_dict[team]['sets'],
+                           provider='summary')
 
 
 @app.route("/data_summary.html")
