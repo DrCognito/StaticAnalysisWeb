@@ -57,9 +57,9 @@ def get_team_nav(team, dataset):
     navigators += [("Drafts", url_for("plots.draft", team=team,
                     side="dire", dataset=dataset))]
     # Change plot to 'wards' for normal aggregate ward plots
-    navigators += [("Wards", url_for("plots.wards", team=team,
-                    side="dire", dataset=dataset))]
-    navigators += [("Wards2", url_for("plots.wards_separate", team=team,
+    # navigators += [("Wards", url_for("plots.wards", team=team,
+    #                 side="dire", dataset=dataset))]
+    navigators += [("Wards", url_for("plots.wards_separate", team=team,
                     side="dire", dataset=dataset))]
     navigators += [("Positioning", url_for("plots.positioning", team=team,
                     side="dire", dataset=dataset))]
@@ -72,9 +72,9 @@ def get_team_nav(team, dataset):
     navigators += [("Drafts", url_for("plots.draft", team=team,
                     side="radiant", dataset=dataset))]
     # Change plot to 'wards' for normal aggregate ward plots
-    navigators += [("Wards", url_for("plots.wards", team=team,
-                    side="radiant", dataset=dataset))]
-    navigators += [("Wards2", url_for("plots.wards_separate", team=team,
+    # navigators += [("Wards", url_for("plots.wards", team=team,
+    #                 side="radiant", dataset=dataset))]
+    navigators += [("Wards", url_for("plots.wards_separate", team=team,
                     side="radiant", dataset=dataset))]
     navigators += [("Positioning", url_for("plots.positioning", team=team,
                     side="radiant", dataset=dataset))]
