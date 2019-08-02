@@ -85,6 +85,7 @@ def get_team_nav(team, dataset):
 
     navigators += [(None, None)]
     navigators += [("Summary", url_for("summary", team=team, dataset=dataset))]
+    navigators += [("Counters", url_for("counters", team=team, dataset=dataset))]
 
     return navigators
 
@@ -133,6 +134,23 @@ def get_team_summary(team, dataset='default') -> dict:
         summary_dict['rune'] = url_path(data["plot_rune_control"])
 
         return summary_dict
+
+
+def get_counters(team, dataset):
+    update_meta_dict()
+    with open(current_dir / metadata_dict[team]['path'], 'r') as file:
+        json_file = json_load(file)
+
+    if dataset not in json_file:
+        abort(404)
+
+    data = json_file[dataset]
+
+    counters = {}
+    for hero, path in data['counter_picks'].items():
+        counters[hero] = url_path(path)
+
+    return counters
 
 
 def render_plot_template(team, side, plot, dataset='default'):
@@ -269,6 +287,25 @@ def summary(team, dataset='default'):
                            dataset_list=metadata_dict[team]['sets'],
                            provider='summary')
 
+@app.route("/<string:team>/<string:dataset>/counters/<string:hero>.html")
+@app.route("/<string:team>/<string:dataset>/counters/")
+def counters(team, dataset, hero=None):
+    update_meta_dict()
+    print(hero)
+    team = unquote(team)
+    dataset = unquote(dataset)
+    if team not in metadata_dict:
+        abort(404)
+    navigators = get_team_nav(team, dataset)
+    summary = get_team_summary(team, dataset)
+    return render_template('plots/counters.j2',
+                           navigators=navigators,
+                           summary=summary,
+                           team=team,
+                           set=dataset,
+                           dataset_list=metadata_dict[team]['sets'],
+                           counter_picks=get_counters(team, dataset),
+                           hero=hero)
 
 @app.route("/data_summary.html")
 def data_summary():
