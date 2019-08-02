@@ -274,6 +274,7 @@ def team(team, dataset):
 
 @app.route("/<string:team>/<string:dataset>/summary/")
 def summary(team, dataset='default'):
+    update_meta_dict()
     team = unquote(team)
     dataset = unquote(dataset)
     if team not in metadata_dict:
@@ -287,11 +288,11 @@ def summary(team, dataset='default'):
                            dataset_list=metadata_dict[team]['sets'],
                            provider='summary')
 
+
 @app.route("/<string:team>/<string:dataset>/counters/<string:hero>.html")
 @app.route("/<string:team>/<string:dataset>/counters/")
 def counters(team, dataset, hero=None):
     update_meta_dict()
-    print(hero)
     team = unquote(team)
     dataset = unquote(dataset)
     if team not in metadata_dict:
@@ -306,6 +307,7 @@ def counters(team, dataset, hero=None):
                            dataset_list=metadata_dict[team]['sets'],
                            counter_picks=get_counters(team, dataset),
                            hero=hero)
+
 
 @app.route("/data_summary.html")
 def data_summary():
