@@ -111,6 +111,3 @@ venv.bak/
 
 #static files
 static/
-
-#local run file
-local.py
