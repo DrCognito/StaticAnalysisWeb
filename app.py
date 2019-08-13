@@ -57,9 +57,9 @@ def get_team_nav(team, dataset):
     navigators += [("Drafts", url_for("plots.draft", team=team,
                     side="dire", dataset=dataset))]
     # Change plot to 'wards' for normal aggregate ward plots
-    # navigators += [("Wards", url_for("plots.wards", team=team,
-    #                 side="dire", dataset=dataset))]
     navigators += [("Wards", url_for("plots.wards_separate", team=team,
+                    side="dire", dataset=dataset))]
+    navigators += [("Ward Summary", url_for("plots.wards", team=team,
                     side="dire", dataset=dataset))]
     navigators += [("Positioning", url_for("plots.positioning", team=team,
                     side="dire", dataset=dataset))]
@@ -72,9 +72,9 @@ def get_team_nav(team, dataset):
     navigators += [("Drafts", url_for("plots.draft", team=team,
                     side="radiant", dataset=dataset))]
     # Change plot to 'wards' for normal aggregate ward plots
-    # navigators += [("Wards", url_for("plots.wards", team=team,
-    #                 side="radiant", dataset=dataset))]
     navigators += [("Wards", url_for("plots.wards_separate", team=team,
+                    side="radiant", dataset=dataset))]
+    navigators += [("Ward Summary", url_for("plots.wards", team=team,
                     side="radiant", dataset=dataset))]
     navigators += [("Positioning", url_for("plots.positioning", team=team,
                     side="radiant", dataset=dataset))]
@@ -229,7 +229,7 @@ def index():
     # Update our team index and datasets
     update_meta_dict()
     teams = list(metadata_dict.keys())
-    teams.sort()
+    teams.sort(key=str.lower)
     navigators = []
     for team in teams:
         url = url_for("team", team=team,
