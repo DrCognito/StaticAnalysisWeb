@@ -3,7 +3,7 @@ from pathlib import Path
 from collections import defaultdict
 import json
 
-prio_list = ["TIQuals2019", "Ti2019Main"]
+prio_list = ["TIQuals2019", "Ti2019Group", "Ti2019Main", "Epi2019"]
 
 
 def sort_prios(x: str) -> int:
@@ -30,7 +30,6 @@ def make_index(out_path: Path = Path('./index.json'),
                 output[name]['sets'].append(meta_data[data_set]['name'])
             output[name]['sets'].sort(key=str.lower)
             output[name]['sets'].sort(key=sort_prios, reverse=True)
-            print(output[name]['sets'])
 
     with open(out_path, 'w') as f:
         json.dump(output, f)
