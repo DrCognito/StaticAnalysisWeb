@@ -9,6 +9,10 @@ flask = "*"
 python-dotenv = "*"
 flake8 = "*"
 frozen-flask = "*"
+black = "*"
 
 [dev-packages]
 "flake8" = "*"
+
+[pipenv]
+allow_prereleases = true
