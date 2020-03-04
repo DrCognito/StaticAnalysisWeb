@@ -39,6 +39,8 @@ def url_path(path_in: str, endpoint='static'):
     if path_in is not None:
         path_in = path_in.replace("\\", "/")
         path_in = "plots/" + path_in
+    else:
+        path_in = "404.png"
     return url_for(endpoint, filename=path_in)
 
 
@@ -412,6 +414,12 @@ def report(team, dataset='default'):
                            radiant=radiant,
                            summary=summary,
                            team=team)
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('404.j2'), 404
 
 
 def team():
