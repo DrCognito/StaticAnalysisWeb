@@ -1,17 +1,14 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [packages]
-
 flask = "*"
 "jinja2" = "*"
 python-dotenv = "*"
-
+flake8 = "*"
+frozen-flask = "*"
 
 [dev-packages]
-
 "flake8" = "*"
