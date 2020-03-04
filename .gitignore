@@ -111,3 +111,9 @@ venv.bak/
 
 #static files
 static/
+
+#frozen-flask build dir
+build/
+
+#old plots
+plots back/
