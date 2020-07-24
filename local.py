@@ -1,9 +1,13 @@
 from app import app
 from pathlib import Path
 from collections import defaultdict
+from dotenv import load_dotenv
+from os import environ as environment
 import json
 
 prio_list = ["Ti2019Group", "Ti2019Main", "TIQuals2019", "Epi2019"]
+load_dotenv(dotenv_path="setup.env")
+PLOT_PATH = Path(environment['PLOT_DIRECTORY'])
 
 
 def sort_prios(x: str) -> int:
@@ -39,6 +43,6 @@ def make_index(
 
 
 if __name__ == "__main__":
-    index = make_index()
+    index = make_index(plot_dir=PLOT_PATH)
 
     app.run(port=8000)
