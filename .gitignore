@@ -110,7 +110,8 @@ venv.bak/
 #setup.env
 
 #static files
-static/
+static/data_summary/
+static/plots/
 
 #frozen-flask build dir
 build/
