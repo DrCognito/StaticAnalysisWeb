@@ -55,6 +55,7 @@ def get_team_nav(team, dataset):
     # else:
     #     navigators += [(metadata_dict[team]['sets'][0], None)]
     navigators += [(None, "__dataset__")]
+    navigators += [("Drafts", url_for("drafts", team=team, dataset=dataset))]
     navigators += [("DIRE", None)]
     navigators += [
         ("Drafts", url_for("plots.draft", team=team, side="dire", dataset=dataset))
@@ -367,6 +368,37 @@ def data_summary():
         plots["wards_radiant"] = "data_summary/wards_radiant.png"
 
     return render_template("plots/data_summary.j2", navigators=navigators, plots=plots)
+
+
+@app.route("/<string:team>/<string:dataset>/drafts.html")
+def drafts(team, dataset="default"):
+    update_meta_dict()
+    team = unquote(team)
+    dataset = unquote(dataset)
+    if team not in metadata_dict:
+        abort(404)
+
+    with open(current_dir / metadata_dict[team]["path"], "r") as file:
+        json_file = json_load(file)
+
+    if dataset not in json_file:
+        abort(404)
+
+    data = json_file[dataset]
+    plots = {}
+    try:
+        drafts = data["plot_drafts"]
+    except KeyError:
+        abort(404)
+
+    plots["plot_drafts"] = url_path(drafts)
+
+    return render_template(
+                "plots/draft.j2",
+                plots=plots,
+                navigators=get_team_nav(team, dataset),
+                team=team
+            )
 
 
 @app.route("/<string:team>/<string:dataset>/<string:side>/<string:plot>.html")
