@@ -123,3 +123,8 @@
 
   /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
+
+/* Winner illustration box for drafts, should "match" pic colours */
+.winner_box{
+  border: 5px solid #ee82ee;
+}
