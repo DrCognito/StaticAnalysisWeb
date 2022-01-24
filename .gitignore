@@ -121,3 +121,6 @@ plots back/
 # Local Netlify folder
 .netlify
 copy.sh
+
+# netlify settings file
+netlify.toml
