@@ -147,7 +147,7 @@ def get_nav_report():
     return navigators
 
 
-def get_team_summary(team, dataset="default") -> dict:
+def get_team_summary(team, dataset="default", postfix="") -> dict:
     update_meta_dict()
     """Returns a dictionary of summary plots with url_for links"""
     with open(current_dir / metadata_dict[team]["path"], "r") as file:
@@ -158,13 +158,14 @@ def get_team_summary(team, dataset="default") -> dict:
 
         data = json_file[dataset]
 
+
         summary_dict = {}
-        summary_dict["draft_summary"] = url_path(data["plot_draft_summary"])
-        summary_dict["hero_picks"] = url_path(data["plot_hero_picks"])
-        summary_dict["pair_picks"] = url_path(data["plot_pair_picks"])
-        summary_dict["pick_context"] = url_path(data["plot_pick_context"])
-        summary_dict["win_rate"] = url_path(data["plot_win_rate"])
-        summary_dict["rune"] = url_path(data["plot_rune_control"])
+        summary_dict["draft_summary"] = url_path(data[f"plot_draft_summary{postfix}"])
+        summary_dict["hero_picks"] = url_path(data[f"plot_hero_picks{postfix}"])
+        summary_dict["pair_picks"] = url_path(data[f"plot_pair_picks{postfix}"])
+        summary_dict["pick_context"] = url_path(data[f"plot_pick_context{postfix}"])
+        summary_dict["win_rate"] = url_path(data[f"plot_win_rate{postfix}"])
+        summary_dict["rune"] = url_path(data[f"plot_rune_control{postfix}"])
 
         return summary_dict
 
@@ -309,14 +310,16 @@ def team(team, dataset):
 
 
 @app.route("/<string:team>/<string:dataset>/summary/")
-def summary(team, dataset="default"):
+@app.route("/<string:team>/<string:dataset>/summary<string:postfix>/")
+def summary(team, dataset="default", postfix=""):
     update_meta_dict()
     team = unquote(team)
     dataset = unquote(dataset)
     if team not in metadata_dict:
         abort(404)
     navigators = get_team_nav(team, dataset)
-    summary = get_team_summary(team, dataset)
+
+    summary = get_team_summary(team, dataset, postfix=postfix)
     return render_template(
         "plots/summary.j2",
         navigators=navigators,
@@ -388,6 +391,37 @@ def drafts(team, dataset="default"):
     plots = {}
     try:
         drafts = data["plot_drafts"]
+    except KeyError:
+        abort(404)
+
+    plots["plot_drafts"] = url_path(drafts)
+
+    return render_template(
+                "plots/draft.j2",
+                plots=plots,
+                navigators=get_team_nav(team, dataset),
+                team=team
+            )
+
+
+@app.route("/<string:team>/<string:dataset>/drafts_<string:subset>.html")
+def drafts_cut(team, subset, dataset="default"):
+    update_meta_dict()
+    team = unquote(team)
+    dataset = unquote(dataset)
+    if team not in metadata_dict:
+        abort(404)
+
+    with open(current_dir / metadata_dict[team]["path"], "r") as file:
+        json_file = json_load(file)
+
+    if dataset not in json_file:
+        abort(404)
+
+    data = json_file[dataset]
+    plots = {}
+    try:
+        drafts = data[f"plot_drafts_{subset}"]
     except KeyError:
         abort(404)
 
