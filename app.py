@@ -55,7 +55,8 @@ def get_team_nav(team, dataset):
     # else:
     #     navigators += [(metadata_dict[team]['sets'][0], None)]
     navigators += [(None, "__dataset__")]
-    navigators += [("Drafts", url_for("drafts", team=team, dataset=dataset))]
+    navigators += [("Drafts 1st Pick", url_for("drafts_cut", team=team, dataset=dataset, postfix="_first"))]
+    navigators += [("Drafts 2nd Pick", url_for("drafts_cut", team=team, dataset=dataset, postfix="_second"))]
     navigators += [("DIRE", None)]
     navigators += [
         ("Drafts", url_for("plots.draft", team=team, side="dire", dataset=dataset))
@@ -118,6 +119,7 @@ def get_team_nav(team, dataset):
 
     navigators += [(None, None)]
     navigators += [("Summary", url_for("summary", team=team, dataset=dataset))]
+    navigators += [("Summary (last 5)", url_for("summary", team=team, dataset=dataset, postfix="limit5"))]
     navigators += [("Counters", url_for("counters", team=team, dataset=dataset))]
 
     return navigators
@@ -187,7 +189,7 @@ def get_counters(team, dataset):
     return counters
 
 
-def render_plot_template(team, side, plot, dataset="default"):
+def render_plot_template(team, side, plot, dataset="default", postfix=""):
     if side not in ["dire", "radiant"]:
         abort(404)
     if plot not in ["draft", "wards", "positioning", "smoke", "scan", "wards_seperate"]:
@@ -404,8 +406,8 @@ def drafts(team, dataset="default"):
             )
 
 
-@app.route("/<string:team>/<string:dataset>/drafts_<string:subset>.html")
-def drafts_cut(team, subset, dataset="default"):
+@app.route("/<string:team>/<string:dataset>/drafts<string:postfix>.html")
+def drafts_cut(team, postfix, dataset="default"):
     update_meta_dict()
     team = unquote(team)
     dataset = unquote(dataset)
@@ -421,7 +423,7 @@ def drafts_cut(team, subset, dataset="default"):
     data = json_file[dataset]
     plots = {}
     try:
-        drafts = data[f"plot_drafts_{subset}"]
+        drafts = data[f"plot_drafts{postfix}"]
     except KeyError:
         abort(404)
 
