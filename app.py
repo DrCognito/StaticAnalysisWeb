@@ -422,12 +422,17 @@ def drafts_cut(team, postfix, dataset="default"):
 
     data = json_file[dataset]
     plots = {}
-    try:
-        drafts = data[f"plot_drafts{postfix}"]
-    except KeyError:
-        abort(404)
+    # try:
+    #     drafts = data[f"plot_drafts{postfix}"]
+    # except KeyError:
+    #     abort(404)
 
-    plots["plot_drafts"] = url_path(drafts)
+    drafts = data.get(f"plot_drafts{postfix}", None)
+
+    if drafts is not None:
+        plots["plot_drafts"] = url_path(drafts)
+    else:
+        plots["plot_drafts"] = None
 
     return render_template(
                 "plots/draft.j2",
