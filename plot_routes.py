@@ -72,6 +72,29 @@ def wards_separate(team, dataset, side):
     )
 
 
+@plot_routes.route("/<string:team>/<string:dataset>/<string:side>/pregame_positioning.html")
+def pregame_positioning(team, dataset, side):
+    app.update_meta_dict()
+    pregame_positioning = pc.PregamePositioning(
+        app.current_dir / app.metadata_dict[team]["path"], dataset
+    )
+    navigators = app.get_team_nav(team, dataset)
+    try:
+        plots = pregame_positioning.plot_vars(side)
+    except ValueError:
+        abort(404)
+
+    return render_template(
+        "plots/pregame_positioning.j2",
+        plots=plots,
+        navigators=navigators,
+        provider="plots.pregame_positioning",
+        dataset_list=app.metadata_dict[team]["sets"],
+        side=side,
+        team=team,
+    )
+
+
 @plot_routes.route("/<string:team>/<string:dataset>/<string:side>/positioning.html")
 def positioning(team, dataset, side):
     app.update_meta_dict()

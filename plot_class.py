@@ -51,6 +51,19 @@ class WardsSeparate(AbstractPlot):
         return plots
 
 
+class PregamePositioning(AbstractPlot):
+    def plot_vars(self, side: str):
+
+        data = self.metadata[self.dataset]
+        plots = {}
+        # if data[f"pregame_routes_{side}"] is not None:
+        #     plots["pregame_positioning"] = app.url_path(data[f"pregame_routes_{side}"])
+
+        plots["pregame_positioning"] = ["plots/" + p.replace("\\", "/") for p in data[f"pregame_routes_{side}"]]
+
+        return plots
+
+
 class Positioning(AbstractPlot):
     def plot_vars(self, side: str):
 
