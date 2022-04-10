@@ -442,6 +442,42 @@ def drafts_cut(team, postfix, dataset="default"):
             )
 
 
+@app.route("/<string:team>/<string:dataset>/pregame_pos_<string:postfix>.html")
+def pregame_positioning(team, postfix, dataset="default"):
+    update_meta_dict()
+    team = unquote(team)
+    dataset = unquote(dataset)
+    if team not in metadata_dict:
+        abort(404)
+
+    with open(current_dir / metadata_dict[team]["path"], "r") as file:
+        json_file = json_load(file)
+
+    if dataset not in json_file:
+        abort(404)
+
+    data = json_file[dataset]
+    plots = {}
+    # try:
+    #     drafts = data[f"plot_drafts{postfix}"]
+    # except KeyError:
+    #     abort(404)
+
+    drafts = data.get(f"pregame_routes_{postfix}", None)
+
+    if drafts is not None:
+        plots["pregame_positioning"] = url_path(drafts)
+    else:
+        plots["pregame_positioning"] = None
+
+    return render_template(
+                "plots/draft.j2",
+                plots=plots,
+                navigators=get_team_nav(team, dataset),
+                team=team
+            )
+
+
 @app.route("/<string:team>/<string:dataset>/<string:side>/<string:plot>.html")
 def serve_plots(team, dataset, side, plot):
     team = unquote(team)
