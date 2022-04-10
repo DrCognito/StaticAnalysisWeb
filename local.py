@@ -31,8 +31,8 @@ def make_index(
                 data_set_path = plot_dir / name / data_set
                 if data_set_path.exists():
                     output[name]["sets"].append(meta_data[data_set]["name"])
-                else:
-                    print(f"Metadata for {name} has set {data_set} but no files in: {data_set_path}")
+                # else:
+                #     print(f"Metadata for {name} has set {data_set} but no files in: {data_set_path}")
             output[name]["sets"].sort(key=str.lower)
             output[name]["sets"].sort(key=sort_prios, reverse=True)
 
