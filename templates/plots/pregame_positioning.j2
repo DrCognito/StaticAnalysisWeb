@@ -1,7 +1,7 @@
 {% extends "team.j2" %}
 {% block vis %}
 <h2>Pregame Positioning</h2>
-{% for plot in plots['pregame_positioning'].items() %}
-        <img src={{url_for('static', filename=plot)}}><br>
+{% for plot in plots['pregame_positioning'] %}
+<img src={{url_for('static', filename=plot)}}><br>
 {% endfor %}
 {% endblock vis %}
