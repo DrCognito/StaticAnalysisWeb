@@ -124,3 +124,4 @@ copy.sh
 
 # netlify settings file
 netlify.toml
+index.json
