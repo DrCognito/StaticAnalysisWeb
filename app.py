@@ -76,6 +76,13 @@ def get_team_nav(team, dataset):
     ]
     navigators += [
         (
+            "Pre-game Routes",
+            url_for("plots.pregame_positioning", team=team,
+                    side="dire", dataset=dataset),
+        )
+    ]
+    navigators += [
+        (
             "Positioning",
             url_for("plots.positioning", team=team, side="dire", dataset=dataset),
         )
@@ -102,6 +109,13 @@ def get_team_nav(team, dataset):
         (
             "Ward Summary",
             url_for("plots.wards", team=team, side="radiant", dataset=dataset),
+        )
+    ]
+    navigators += [
+        (
+            "Pre-game Routes",
+            url_for("plots.pregame_positioning", team=team,
+                    side="radiant", dataset=dataset),
         )
     ]
     navigators += [
@@ -192,7 +206,8 @@ def get_counters(team, dataset):
 def render_plot_template(team, side, plot, dataset="default", postfix=""):
     if side not in ["dire", "radiant"]:
         abort(404)
-    if plot not in ["draft", "wards", "positioning", "smoke", "scan", "wards_seperate"]:
+    if plot not in ["draft", "wards", "positioning", "smoke", "scan",
+                    "wards_seperate", "pregame_positioning"]:
         abort(404)
 
     with open(current_dir / metadata_dict[team]["path"], "r") as file:
@@ -260,6 +275,17 @@ def render_plot_template(team, side, plot, dataset="default", postfix=""):
                 plots["scan"] = url_path(data["plot_scan_{}".format(side)])
             return render_template(
                 "plots/scan.j2", plots=plots, navigators=navigators, team=team
+            )
+
+        if plot == "pregame_positioning":
+            try:
+                if data[f"pregame_routes_{side}"] is not None:
+                    plots["pregame_positioning"] = url_path(data[f"pregame_routes_{side}"])
+            except KeyError:
+                abort(404)
+            return render_template(
+                "plots/pregame_positioning.j2", plots=plots,
+                navigators=navigators, team=team
             )
 
 
@@ -433,42 +459,6 @@ def drafts_cut(team, postfix, dataset="default"):
         plots["plot_drafts"] = url_path(drafts)
     else:
         plots["plot_drafts"] = None
-
-    return render_template(
-                "plots/draft.j2",
-                plots=plots,
-                navigators=get_team_nav(team, dataset),
-                team=team
-            )
-
-
-@app.route("/<string:team>/<string:dataset>/pregame_pos_<string:postfix>.html")
-def pregame_positioning(team, postfix, dataset="default"):
-    update_meta_dict()
-    team = unquote(team)
-    dataset = unquote(dataset)
-    if team not in metadata_dict:
-        abort(404)
-
-    with open(current_dir / metadata_dict[team]["path"], "r") as file:
-        json_file = json_load(file)
-
-    if dataset not in json_file:
-        abort(404)
-
-    data = json_file[dataset]
-    plots = {}
-    # try:
-    #     drafts = data[f"plot_drafts{postfix}"]
-    # except KeyError:
-    #     abort(404)
-
-    drafts = data.get(f"pregame_routes_{postfix}", None)
-
-    if drafts is not None:
-        plots["pregame_positioning"] = url_path(drafts)
-    else:
-        plots["pregame_positioning"] = None
 
     return render_template(
                 "plots/draft.j2",
