@@ -57,6 +57,7 @@ def get_team_nav(team, dataset):
     navigators += [(None, "__dataset__")]
     navigators += [("Drafts 1st Pick", url_for("drafts_cut", team=team, dataset=dataset, postfix="_first"))]
     navigators += [("Drafts 2nd Pick", url_for("drafts_cut", team=team, dataset=dataset, postfix="_second"))]
+    navigators += [("Drafts All", url_for("drafts_cut", team=team, dataset=dataset, postfix="_all"))]
     navigators += [("DIRE", None)]
     navigators += [
         ("Drafts", url_for("plots.draft", team=team, side="dire", dataset=dataset))
