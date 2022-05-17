@@ -182,7 +182,7 @@ def get_team_summary(team, dataset="default", postfix="") -> dict:
         summary_dict["pair_picks"] = url_path(data[f"plot_pair_picks{postfix}"])
         summary_dict["pick_context"] = url_path(data[f"plot_pick_context{postfix}"])
         summary_dict["win_rate"] = url_path(data[f"plot_win_rate{postfix}"])
-        summary_dict["rune"] = url_path(data[f"plot_rune_control{postfix}"])
+        summary_dict["rune"] = url_path(data.get(f"plot_rune_control{postfix}"))
 
         return summary_dict
 
