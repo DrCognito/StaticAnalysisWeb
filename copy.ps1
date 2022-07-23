@@ -4,4 +4,4 @@ $ORIGIN = "E:\Python\StaticAnalysis\plots\*"
 $JOB = "PlotCopy"
 $OPTIONS = "/job=$JOB"
 
-& $FAST_COPY $OPTIONS /no_ui | echo "Waiting"
+# & $FAST_COPY $OPTIONS /no_ui | echo "Waiting"
