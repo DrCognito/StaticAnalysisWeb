@@ -8,6 +8,10 @@
     <h2>Hero Picks<h2><br>
     <img class='img-fit' src={{summary["hero_picks"]}}><br>
 {% endif %}
+{% if summary["hero_flex"] is not none %}
+    <h2>Flex Picks<h2><br>
+    <img class='img-fit' src={{summary["hero_flex"]}}><br>
+{% endif %}
 {% if summary["pair_picks"] is not none %}
     <h2>Pair Pick Rate<h2><br>
     <img class='img-fit' src={{summary["pair_picks"]}}><br>
