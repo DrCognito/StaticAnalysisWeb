@@ -126,3 +126,4 @@ copy.sh
 netlify.toml
 index.json
 static/plots
+index.json
