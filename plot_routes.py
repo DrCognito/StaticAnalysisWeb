@@ -8,13 +8,22 @@ import plot_class as pc
 plot_routes = Blueprint("plots", __name__)
 
 
+@plot_routes.route("/<string:team>/<string:dataset>/drafts<string:postfix>.html")
 @plot_routes.route("/<string:team>/<string:dataset>/<string:side>/draft.html")
-def draft(team, dataset, side):
+def draft(team, dataset, side=None, postfix=None):
     app.update_meta_dict()
     draft = pc.Drafts(app.current_dir / app.metadata_dict[team]["path"], dataset)
+    print(f"s:{side} p:{postfix}")
+    key = "plot"
+    if side is not None:
+        key += f"_{side}"
+    key += "_drafts"
+    if postfix is not None:
+        key += postfix
+
     navigators = app.get_team_nav(team, dataset)
     try:
-        plots = draft.plot_vars(side)
+        plots = draft.plot_vars(key)
     except ValueError:
         abort(404)
     return render_template(
@@ -25,6 +34,7 @@ def draft(team, dataset, side):
         dataset_list=app.metadata_dict[team]["sets"],
         side=side,
         team=team,
+        postfix=postfix,
     )
 
 
