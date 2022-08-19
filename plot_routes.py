@@ -13,7 +13,7 @@ plot_routes = Blueprint("plots", __name__)
 def draft(team, dataset, side=None, postfix=None):
     app.update_meta_dict()
     draft = pc.Drafts(app.current_dir / app.metadata_dict[team]["path"], dataset)
-    print(f"s:{side} p:{postfix}")
+
     key = "plot"
     if side is not None:
         key += f"_{side}"
