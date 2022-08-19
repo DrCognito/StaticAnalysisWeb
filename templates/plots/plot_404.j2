@@ -1,0 +1,9 @@
+{% extends "team.j2" %}
+{% block vis %}
+{% if plot_type is not none%}
+<h2>{{plot_type}}</h2>
+{% endif %}
+{% if message is not none %}
+Error note: {{message}}
+{% endif %}
+{% endblock vis %}

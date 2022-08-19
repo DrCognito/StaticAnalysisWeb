@@ -24,8 +24,14 @@ def draft(team, dataset, side=None, postfix=None):
     navigators = app.get_team_nav(team, dataset)
     try:
         plots = draft.plot_vars(key)
-    except ValueError:
-        abort(404)
+    except (ValueError, KeyError):
+        message = f"No data for {team} on {side} with data {dataset}+{postfix}"
+        return render_template("plots/plot_404.j2",
+                                navigators=navigators,
+                                team=team,
+                                plot_type="No Drafts",
+                                message=message)
+        # abort(404)
     return render_template(
         "plots/draft.j2",
         plots=plots,
