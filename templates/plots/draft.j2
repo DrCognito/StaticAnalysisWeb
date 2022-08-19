@@ -4,6 +4,12 @@
 <span class="winner_box">Winning Team</span>
 <br>
 {% if plots["plot_drafts"] is not none %}
-    <img class='img-fit' src={{plots["plot_drafts"]}}>
+    {% if plots["plot_drafts"] is string %}
+        <img class='img-fit' src={{plots["plot_drafts"]}}>
+    {% else %}
+        {% for draft in plots["plot_drafts"] %}
+            <img class='img-fit' src={{draft}}>
+        {% endfor %}
+    {% endif %}
 {% endif %}
 {% endblock vis %}
