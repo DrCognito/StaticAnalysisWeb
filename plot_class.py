@@ -14,14 +14,18 @@ class AbstractPlot:
 
 
 class Drafts(AbstractPlot):
-    def plot_vars(self, side: str):
+    def plot_vars(self, key: str):
 
         data = self.metadata[self.dataset]
         plots = {}
-        plots["drafts_link"] = "#{}_drafts".format(side)
-        if data["plot_{}_drafts".format(side)] is not None:
-            plots["plot_drafts"] = app.url_path(data["plot_{}_drafts".format(side)])
+        plots["drafts_link"] = f"#{key}"
 
+        if type(drafts := data[key]) is str:
+            plots["plot_drafts"] = app.url_path(drafts)
+        if type(drafts) is list:
+            plots["plot_drafts"] = []
+            for draft in drafts:
+                plots["plot_drafts"].append(app.url_path(draft))
         return plots
 
 
