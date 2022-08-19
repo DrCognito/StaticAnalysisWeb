@@ -55,9 +55,9 @@ def get_team_nav(team, dataset):
     # else:
     #     navigators += [(metadata_dict[team]['sets'][0], None)]
     navigators += [(None, "__dataset__")]
-    navigators += [("Drafts 1st Pick", url_for("drafts_cut", team=team, dataset=dataset, postfix="_first"))]
-    navigators += [("Drafts 2nd Pick", url_for("drafts_cut", team=team, dataset=dataset, postfix="_second"))]
-    navigators += [("Drafts All", url_for("drafts_cut", team=team, dataset=dataset, postfix="_all"))]
+    navigators += [("Drafts 1st Pick", url_for("plots.draft", team=team, dataset=dataset, postfix="_first"))]
+    navigators += [("Drafts 2nd Pick", url_for("plots.draft", team=team, dataset=dataset, postfix="_second"))]
+    navigators += [("Drafts All", url_for("plots.draft", team=team, dataset=dataset, postfix="_all"))]
     navigators += [("DIRE", None)]
     navigators += [
         ("Drafts", url_for("plots.draft", team=team, side="dire", dataset=dataset))
@@ -401,73 +401,6 @@ def data_summary():
         plots["wards_radiant"] = "data_summary/wards_radiant.png"
 
     return render_template("plots/data_summary.j2", navigators=navigators, plots=plots)
-
-
-@app.route("/<string:team>/<string:dataset>/drafts.html")
-def drafts(team, dataset="default"):
-    update_meta_dict()
-    team = unquote(team)
-    dataset = unquote(dataset)
-    if team not in metadata_dict:
-        abort(404)
-
-    with open(current_dir / metadata_dict[team]["path"], "r") as file:
-        json_file = json_load(file)
-
-    if dataset not in json_file:
-        abort(404)
-
-    data = json_file[dataset]
-    plots = {}
-    try:
-        drafts = data["plot_drafts"]
-    except KeyError:
-        abort(404)
-
-    plots["plot_drafts"] = url_path(drafts)
-
-    return render_template(
-                "plots/draft.j2",
-                plots=plots,
-                navigators=get_team_nav(team, dataset),
-                team=team
-            )
-
-
-@app.route("/<string:team>/<string:dataset>/drafts<string:postfix>.html")
-def drafts_cut(team, postfix, dataset="default"):
-    update_meta_dict()
-    team = unquote(team)
-    dataset = unquote(dataset)
-    if team not in metadata_dict:
-        abort(404)
-
-    with open(current_dir / metadata_dict[team]["path"], "r") as file:
-        json_file = json_load(file)
-
-    if dataset not in json_file:
-        abort(404)
-
-    data = json_file[dataset]
-    plots = {}
-    # try:
-    #     drafts = data[f"plot_drafts{postfix}"]
-    # except KeyError:
-    #     abort(404)
-
-    drafts = data.get(f"plot_drafts{postfix}", None)
-
-    if drafts is not None:
-        plots["plot_drafts"] = url_path(drafts)
-    else:
-        plots["plot_drafts"] = None
-
-    return render_template(
-                "plots/draft.j2",
-                plots=plots,
-                navigators=get_team_nav(team, dataset),
-                team=team
-            )
 
 
 @app.route("/<string:team>/<string:dataset>/<string:side>/<string:plot>.html")

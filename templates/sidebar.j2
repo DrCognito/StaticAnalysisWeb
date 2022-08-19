@@ -15,11 +15,7 @@
       </button>
       <div class="dropdown-container">
       {% for set in dataset_list %}
-        {% if side is none %}
-          <a href={{ url_for(provider, team=team, dataset=set)}}>{{set}}</a>
-        {%else%}
-          <a href={{ url_for(provider, team=team, dataset=set, side=side)}}>{{set}}</a>
-        {% endif %}
+        <a href={{ url_for(provider, team=team, dataset=set, side=side, postfix=postfix)}}>{{set}}</a>
       {% endfor %}
       </div>
       {% endif %}
