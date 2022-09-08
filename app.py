@@ -325,14 +325,27 @@ def team(team, dataset):
         data = json_file[dataset]
         navigators = get_team_nav(team, dataset)
         dire = data["replays_dire"]
-        dire.sort(reverse=True)
         radiant = data["replays_radiant"]
+        dire.sort(reverse=True)
         radiant.sort(reverse=True)
         replay_list = list(zip_longest(dire, radiant))
+
+        dire_drafts = data.get('drafts_only_dire')
+        radiant_drafts = data.get('drafts_only_radiant')
+        drafts_only = None
+        if dire_drafts:
+            dire_drafts = [x for x in dire_drafts if x not in dire]
+            dire_drafts.sort(reverse=True)
+        if radiant_drafts:
+            radiant_drafts = [x for x in radiant_drafts if x not in radiant]
+            radiant_drafts.sort(reverse=True)
+        if dire_drafts or radiant_drafts:
+            drafts_only = list(zip_longest(dire_drafts, radiant_drafts))
         return render_template(
             "replays.j2",
             navigators=navigators,
             replays=replay_list,
+            drafts_only=drafts_only,
             team=team,
             dataset_list=metadata_dict[team]["sets"],
             winrates=data["stat_win_rate"],
