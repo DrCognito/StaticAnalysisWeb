@@ -15,6 +15,20 @@
         {% endfor %}
     </table>
 {% endif %}
+{% if drafts_only is not none %}
+<h2>Drafts Only</h2>
+    <table>
+        <td style="min-width:80px">Dire</td><td style="min-width:80px">Radiant</td>
+        {% for r_pair in drafts_only %}
+            {% set left = '' if r_pair[0] is none else r_pair[0] %}
+            {% set right = '' if r_pair[1] is none else r_pair[1] %}
+            <tr>
+            <td align='right'>{{left}}</td>
+            <td align='right'>{{right}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}
 {% if winrates is not none %}
 <h2>Win Rates</h2>
 {{winrates}}
