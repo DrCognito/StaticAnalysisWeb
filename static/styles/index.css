@@ -1,20 +1,25 @@
  /* The sidebar menu */
  .sidenav {
-    /*height: 100%; /* Full-height: remove this if you want "auto" height */
-    width: 220px; /* Set the width of the sidebar */
-    position: fixed; /*Fixed Sidebar (stay in place on scroll) */
-    z-index: 1; /* Stay on top */
-    top: 0; /* Stay at the top */
-    left: 0;
-    bottom: 0;
-    background-color: #111; /* Black */
-    overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-right: 16px;
-    border-right:solid #a98c66 4px;
+  /*height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 220px; /* Set the width of the sidebar */
+  position: fixed; /*Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /*Stay on top*/
+  left: 0;
+  background-color: #111; /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 16px;
+  border-right:solid #a98c66 4px;
+  overflow-y: scroll;
+  min-width: 150px;
+  position: fixed;
+  height: 100%;
+  float: left;
+  background-color: #111;
+  border-right:solid #a98c66 4px;
+  top: 40px;
 }
-
 /* The navigation menu links */
 /* And drop down button */
 .sidenav a, .dropdown-btn, .dropbtn {
@@ -31,25 +36,28 @@
     outline: none;
     overflow-y: auto;
 }
-.sidenav {
-    padding: 8px 6px 0px 16px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    overflow-y: auto;
-}
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover, .dropdown-btn:hover {
     color: #f1f1f1;
 }
-
+.sidenav {
+  padding: 8px 6px 0px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  overflow-y: auto;
+}
 /* Style page content */
 .main {
+    /* margin-left: 220px; Same as the width of the sidebar */
     margin-left: 220px; /* Same as the width of the sidebar */
-    padding: 0px 20px;
+    padding: 60px 40px;
 }
-
+body{
+  margin: 0px;
+  padding: 0px;
+}
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
@@ -129,4 +137,43 @@
 /* Winner illustration box for drafts, should "match" pic colours */
 .winner_box{
   border: 5px solid #ee82ee;
+}
+
+.topnav {
+  background-color: #333;
+  /* overflow: hidden; */
+  left: 0;
+  height: 36px;
+  padding-left: 0;
+  width: 100%;
+  text-align:right;
+  padding-right:0px;
+  padding-top:0px;
+  margin-left: 0px;
+  position: fixed;
+  top: 0px;
+  background-color: #111;
+  border-bottom:solid #a98c66 4px;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #818181;
+  text-align: center;
+  padding: 5px 16px;
+  text-decoration: none;
+  font-size: 25px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
 }
