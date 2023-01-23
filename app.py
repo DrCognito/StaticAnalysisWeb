@@ -44,6 +44,19 @@ def url_path(path_in: str, endpoint="static"):
     return url_for(endpoint, filename=path_in)
 
 
+def get_meta_nav():
+    navigators = []
+    meta_json = Path('./static/meta_plots/meta.json')
+    if meta_json.exists():
+        with open(meta_json, 'r') as f:
+            meta_plots: dict = json_load(f)
+            for league, plot in meta_plots.items():
+                navigators += [(league, url_for("meta", league=league,
+                                                plot=plot))]
+
+    return navigators
+
+
 def get_team_nav(team, dataset):
     """Produces name, url_for pairs for a teams sidebar.
        To be used with the sidebar templates.
@@ -507,6 +520,23 @@ def report(team, dataset="default"):
         team=team,
     )
 
+@app.route("/meta/")
+@app.route("/meta/<string:league>")
+def meta(league=None):
+    plot = None
+    if league is not None:
+        meta_json = Path('./static/meta_plots/meta.json')
+        if meta_json.exists():
+            with open(meta_json, 'r') as f:
+                meta_plots: dict = json_load(f)
+                try:
+                    plot = f"meta_plots/{meta_plots[league]}"
+                except KeyError:
+                    abort(404)
+    print(plot)
+    print(league)
+    navigators = get_meta_nav()
+    return render_template("meta.j2", navigators=navigators, league=league, plot=plot)
 
 @app.errorhandler(404)
 def page_not_found(e):
