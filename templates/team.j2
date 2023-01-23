@@ -1,5 +1,5 @@
 {% extends "base.j2" %}
-
+{% include "topbar.j2" %}
 {% block sidebar %}
     {% with navigators=navigators, dataset_list=dataset_list, team=team, provider=provider%}
         {% include "sidebar.j2" %}

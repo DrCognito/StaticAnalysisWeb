@@ -6,7 +6,8 @@
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/index.css') }}">
 </head>
 <body>
-{% block sidebar %}Sidebar goes here!{% endblock sidebar %}
+{% block topbar %}{% endblock topbar %}
+{% block sidebar %}{% endblock sidebar %}
 {% block content %}
     <p>Default content to be displayed</p>
 {% endblock content %}
