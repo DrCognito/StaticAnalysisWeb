@@ -127,3 +127,5 @@ netlify.toml
 index.json
 static/plots
 index.json
+# static link
+static/meta_plots
