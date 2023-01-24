@@ -51,8 +51,7 @@ def get_meta_nav():
         with open(meta_json, 'r') as f:
             meta_plots: dict = json_load(f)
             for league, plot in meta_plots.items():
-                navigators += [(league, url_for("meta", league=league,
-                                                plot=plot))]
+                navigators += [(league, url_for("meta", league=league))]
 
     return navigators
 
@@ -521,7 +520,7 @@ def report(team, dataset="default"):
     )
 
 @app.route("/meta/")
-@app.route("/meta/<string:league>")
+@app.route("/meta/<string:league>.html")
 def meta(league=None):
     plot = None
     if league is not None:
@@ -533,8 +532,6 @@ def meta(league=None):
                     plot = f"meta_plots/{meta_plots[league]}"
                 except KeyError:
                     abort(404)
-    print(plot)
-    print(league)
     navigators = get_meta_nav()
     return render_template("meta.j2", navigators=navigators, league=league, plot=plot)
 
