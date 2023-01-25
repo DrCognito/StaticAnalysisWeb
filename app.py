@@ -528,8 +528,11 @@ def meta(league=None):
         if meta_json.exists():
             with open(meta_json, 'r') as f:
                 meta_plots: dict = json_load(f)
+                plot = {}
                 try:
-                    plot = f"meta_plots/{meta_plots[league]}"
+                    print(meta_plots[league])
+                    for type, p in meta_plots[league].items():
+                        plot[type] = f"meta_plots/{p}"
                 except KeyError:
                     abort(404)
     navigators = get_meta_nav()
