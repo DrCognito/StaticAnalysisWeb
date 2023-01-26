@@ -530,7 +530,6 @@ def meta(league=None):
                 meta_plots: dict = json_load(f)
                 plot = {}
                 try:
-                    print(meta_plots[league])
                     for type, p in meta_plots[league].items():
                         plot[type] = f"meta_plots/{p}"
                 except KeyError:
