@@ -47,11 +47,17 @@ def url_path(path_in: str, endpoint="static"):
 def get_meta_nav():
     navigators = []
     meta_json = Path('./static/meta_plots/meta.json')
+    # Categories of meta to add to navs
+    categories = ["Division 1", "Division 2", "Tournaments", "Pubs"]
     if meta_json.exists():
         with open(meta_json, 'r') as f:
             meta_plots: dict = json_load(f)
-            for league, plot in meta_plots.items():
-                navigators += [(league, url_for("meta", league=league))]
+            for c in categories:
+                if c in meta_plots:
+                    navigators += [(c, None)]
+                    for league in meta_plots[c]:
+                        navigators += [(league, url_for("meta", category=c, league=league))]
+                    # navigators += [(None, None)]
 
     return navigators
 
@@ -520,20 +526,37 @@ def report(team, dataset="default"):
     )
 
 @app.route("/meta/")
-@app.route("/meta/<string:league>.html")
-def meta(league=None):
+@app.route("/meta/<string:category>/<string:league>.html")
+def meta(league=None, category=None):
     plot = None
-    if league is not None:
+    if league is not None and category is not None:
         meta_json = Path('./static/meta_plots/meta.json')
         if meta_json.exists():
             with open(meta_json, 'r') as f:
                 meta_plots: dict = json_load(f)
                 plot = {}
                 try:
-                    for type, p in meta_plots[league].items():
-                        plot[type] = f"meta_plots/{p}"
+                    plots = meta_plots[category][league]
+                    if isinstance(plots, dict):
+                        for type, p in meta_plots[category][league].items():
+                            plot[type] = f"meta_plots/{p}"
+                    if isinstance(plots, str):
+                        plot['basic'] = f"meta_plots/{plots}"
                 except KeyError:
                     abort(404)
+    # if league is None and category is not None:
+    #     meta_json = Path('./static/meta_plots/meta.json')
+    #     if meta_json.exists():
+    #         with open(meta_json, 'r') as f:
+    #             meta_plots: dict = json_load(f)
+    #             plot = {}
+    #             try:
+    #                 plots = meta_plots[category][league]
+                    
+    #                 for type, p in .items():
+    #                     plot["all"] = f"meta_plots/{p}"
+    #             except KeyError:
+    #                 abort(404)
     navigators = get_meta_nav()
     return render_template("meta.j2", navigators=navigators, league=league, plot=plot)
 
