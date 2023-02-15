@@ -10,6 +10,9 @@
 <br>
 {% endif %}
 {% if plot is not none %}
+    {% if 'basic' in plot %}
+        <img class='img-fit' src={{url_for('static', filename=plot['basic'])}}>
+    {% endif %}
     {% if 'all' in plot %}
         <h2>All</h2>
         <img class='img-fit' src={{url_for('static', filename=plot['all'])}}>
