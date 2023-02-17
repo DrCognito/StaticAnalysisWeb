@@ -417,7 +417,7 @@ def counters(team, dataset, hero=None):
     )
 
 
-@app.route("/data_summary.html")
+# @app.route("/data_summary.html")
 def data_summary():
     navigators = []
     for team in metadata_dict:
