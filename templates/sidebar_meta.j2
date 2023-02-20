@@ -1,0 +1,43 @@
+<!-- Side navigation -->
+<div class="sidenav", id="navbar">
+{% for header, leagues in navigators.items() %}
+<button class="accordion header">{{header}}</button>
+<div class="panel">
+    {% for l in leagues %}
+        <a href={{l[1]}}>{{l[0]}}</a>
+    {% endfor %}
+</div>
+<hr>
+{% endfor %}
+</div>
+
+<script type="text/javascript">
+// Adapted from:
+// https://www.w3schools.com/howto/howto_js_accordion.asp
+
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    /* Toggle between adding and removing the "active" class,
+    to highlight the button that controls the panel */
+    this.classList.toggle("active");
+
+    /* Toggle between hiding and showing the active panel */
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
+{% if category is not none %}
+for (const a of document.getElementsByClassName("accordion")) {
+  if (a.textContent.includes("{{category}}")) {
+    a.click();
+  }
+}
+{% endif %}
+</script>
