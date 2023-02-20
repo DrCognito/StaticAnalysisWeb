@@ -45,18 +45,18 @@ def url_path(path_in: str, endpoint="static"):
 
 
 def get_meta_nav():
-    navigators = []
     meta_json = Path('./static/meta_plots/meta.json')
     # Categories of meta to add to navs
     categories = ["Division 1", "Division 2", "Tournaments", "Pubs"]
+    navigators = {}
     if meta_json.exists():
         with open(meta_json, 'r') as f:
             meta_plots: dict = json_load(f)
             for c in categories:
                 if c in meta_plots:
-                    navigators += [(c, None)]
+                    navigators[c] = []
                     for league in meta_plots[c]:
-                        navigators += [(league, url_for("meta", category=c, league=league))]
+                        navigators[c] += [(league, url_for("meta", category=c, league=league))]
                     # navigators += [(None, None)]
 
     return navigators
@@ -558,7 +558,8 @@ def meta(league=None, category=None):
     #             except KeyError:
     #                 abort(404)
     navigators = get_meta_nav()
-    return render_template("meta.j2", navigators=navigators, league=league, plot=plot)
+    return render_template("meta.j2", navigators=navigators,
+                           league=league, plot=plot, category=category)
 
 @app.errorhandler(404)
 def page_not_found(e):
