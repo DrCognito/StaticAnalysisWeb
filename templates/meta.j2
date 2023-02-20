@@ -1,8 +1,8 @@
 {% extends "base.j2" %}
 {% block content %}
 {% include "topbar.j2" %}
-{% with navigators=navigators %}
-{% include "sidebar.j2" %}
+{% with navigators=navigators, category=category %}
+{% include "sidebar_meta.j2" %}
 {% endwith %}
 <div class="main">
 {% if league is not none %}
