@@ -38,7 +38,9 @@
 }
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover, .dropdown-btn:hover {
-    color: #f1f1f1;
+    /* color: #f1f1f1; */
+    background-color: #ddd;
+    color: black;
 }
 .sidenav {
   padding: 8px 6px 0px 16px;
