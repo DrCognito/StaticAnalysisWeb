@@ -66,94 +66,95 @@ def get_team_nav(team, dataset):
     """Produces name, url_for pairs for a teams sidebar.
        To be used with the sidebar templates.
     """
-    navigators = [("Back", url_for("index"))]
-    navigators += [(team, url_for("team", team=team, dataset=dataset))]
+    navigators = {}
+    navigators['top'] = [("Back", url_for("index"))]
+    navigators['top'] += [(team, url_for("team", team=team, dataset=dataset))]
     # if len(metadata_dict[team]['sets']) > 1:
     #     navigators += [(None, "__dataset__")]
     # else:
     #     navigators += [(metadata_dict[team]['sets'][0], None)]
-    navigators += [(None, "__dataset__")]
-    navigators += [("Drafts 1st Pick", url_for("plots.draft", team=team, dataset=dataset, postfix="_first"))]
-    navigators += [("Drafts 2nd Pick", url_for("plots.draft", team=team, dataset=dataset, postfix="_second"))]
-    navigators += [("Drafts All", url_for("plots.draft", team=team, dataset=dataset, postfix="_all"))]
-    navigators += [("DIRE", None)]
-    navigators += [
+    navigators['top'] += [(None, "__dataset__")]
+    navigators['top'] += [("Drafts 1st Pick", url_for("plots.draft", team=team, dataset=dataset, postfix="_first"))]
+    navigators['top'] += [("Drafts 2nd Pick", url_for("plots.draft", team=team, dataset=dataset, postfix="_second"))]
+    navigators['top'] += [("Drafts All", url_for("plots.draft", team=team, dataset=dataset, postfix="_all"))]
+    # navigators += [("DIRE", None)]
+    # Dire
+    navigators['dire'] = [
         ("Drafts", url_for("plots.draft", team=team, side="dire", dataset=dataset))
     ]
     # Change plot to 'wards' for normal aggregate ward plots
-    navigators += [
+    navigators['dire'] += [
         (
             "Wards",
             url_for("plots.wards_separate", team=team, side="dire", dataset=dataset),
         )
     ]
-    navigators += [
+    navigators['dire'] += [
         (
             "Ward Summary",
             url_for("plots.wards", team=team, side="dire", dataset=dataset),
         )
     ]
-    navigators += [
+    navigators['dire'] += [
         (
             "Pre-game Routes",
             url_for("plots.pregame_positioning", team=team,
                     side="dire", dataset=dataset),
         )
     ]
-    navigators += [
+    navigators['dire'] += [
         (
             "Positioning",
             url_for("plots.positioning", team=team, side="dire", dataset=dataset),
         )
     ]
-    navigators += [
+    navigators['dire'] += [
         ("Smokes", url_for("plots.smoke", team=team, side="dire", dataset=dataset))
     ]
-    navigators += [
+    navigators['dire'] += [
         ("Scans", url_for("plots.scan", team=team, side="dire", dataset=dataset))
     ]
 
-    navigators += [("RADIANT", None)]
-    navigators += [
+    # Radiant
+    navigators['radiant'] = [
         ("Drafts", url_for("plots.draft", team=team, side="radiant", dataset=dataset))
     ]
     # Change plot to 'wards' for normal aggregate ward plots
-    navigators += [
+    navigators['radiant'] += [
         (
             "Wards",
             url_for("plots.wards_separate", team=team, side="radiant", dataset=dataset),
         )
     ]
-    navigators += [
+    navigators['radiant'] += [
         (
             "Ward Summary",
             url_for("plots.wards", team=team, side="radiant", dataset=dataset),
         )
     ]
-    navigators += [
+    navigators['radiant'] += [
         (
             "Pre-game Routes",
             url_for("plots.pregame_positioning", team=team,
                     side="radiant", dataset=dataset),
         )
     ]
-    navigators += [
+    navigators['radiant'] += [
         (
             "Positioning",
             url_for("plots.positioning", team=team, side="radiant", dataset=dataset),
         )
     ]
-    navigators += [
+    navigators['radiant'] += [
         ("Smokes", url_for("plots.smoke", team=team, side="radiant", dataset=dataset))
     ]
-    navigators += [
+    navigators['radiant'] += [
         ("Scans", url_for("plots.scan", team=team, side="radiant", dataset=dataset))
     ]
 
-    navigators += [(None, None)]
-    navigators += [("Summary", url_for("summary", team=team, dataset=dataset))]
-    navigators += [("Summary (last 5)", url_for("summary", team=team, dataset=dataset, postfix="limit5"))]
-    navigators += [("Counters", url_for("counters", team=team, dataset=dataset))]
+    navigators['summary'] = [("Summary", url_for("summary", team=team, dataset=dataset))]
+    navigators['summary'] += [("Summary (last 5)", url_for("summary", team=team, dataset=dataset, postfix="limit5"))]
+    navigators['summary'] += [("Counters", url_for("counters", team=team, dataset=dataset))]
 
     return navigators
 
