@@ -1,7 +1,7 @@
 <!-- Side navigation -->
 <div class="sidenav", id="navbar">
 {% for header, leagues in navigators.items() %}
-<button class="accordion header">{{header}}</button>
+<button class="accordion header highlight">{{header}}</button>
 <div class="panel">
     {% for l in leagues %}
         <a href={{l[1]}}>{{l[0]}}</a>
