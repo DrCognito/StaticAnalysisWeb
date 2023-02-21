@@ -41,6 +41,7 @@ def draft(team, dataset, side=None, postfix=None):
         side=side,
         team=team,
         postfix=postfix,
+        active=side,
     )
 
 
@@ -62,6 +63,7 @@ def wards(team, dataset, side):
         provider="plots.wards",
         side=side,
         team=team,
+        active=side,
     )
 
 
@@ -85,6 +87,7 @@ def wards_separate(team, dataset, side):
         dataset_list=app.metadata_dict[team]["sets"],
         side=side,
         team=team,
+        active=side,
     )
 
 
@@ -108,6 +111,7 @@ def pregame_positioning(team, dataset, side):
         dataset_list=app.metadata_dict[team]["sets"],
         side=side,
         team=team,
+        active=side,
     )
 
 
@@ -131,6 +135,7 @@ def positioning(team, dataset, side):
         dataset_list=app.metadata_dict[team]["sets"],
         side=side,
         team=team,
+        active=side,
     )
 
 
@@ -152,6 +157,7 @@ def smoke(team, dataset, side):
         dataset_list=app.metadata_dict[team]["sets"],
         side=side,
         team=team,
+        active=side,
     )
 
 
@@ -173,4 +179,5 @@ def scan(team, dataset, side):
         dataset_list=app.metadata_dict[team]["sets"],
         side=side,
         team=team,
+        active=side,
     )
