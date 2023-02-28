@@ -47,7 +47,7 @@ def url_path(path_in: str, endpoint="static"):
 def get_meta_nav():
     meta_json = Path('./static/meta_plots/meta.json')
     # Categories of meta to add to navs
-    categories = ["Division 1", "Division 2", "Tournaments", "Pubs"]
+    categories = ["Division 1", "Division 2", "Tournaments", "Pubs", "Pub Regions"]
     navigators = {}
     if meta_json.exists():
         with open(meta_json, 'r') as f:
