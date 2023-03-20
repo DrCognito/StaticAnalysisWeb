@@ -3,7 +3,7 @@ from pathlib import Path
 from collections import defaultdict
 import json
 
-prio_list = ["Season2023",]
+prio_list = ["DPC_T1", "Scrims"]
 
 
 def sort_prios(x: str) -> int:
