@@ -1,7 +1,10 @@
 {% set provider='team'%}
 {% extends "team.j2" %}
 {% block vis %}
+{% if time_string is not none %}
+Data range: {{time_string}}
 <h2>Replays</h2>
+{% endif %}
 {% if replays is not none %}
     <table>
         <td style="min-width:80px">Dire</td><td style="min-width:80px">Radiant</td>

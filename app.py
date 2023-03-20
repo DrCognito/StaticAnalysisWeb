@@ -355,6 +355,7 @@ def team(team, dataset):
 
         dire_drafts = data.get('drafts_only_dire')
         radiant_drafts = data.get('drafts_only_radiant')
+        time_string = data.get('time_string')
         drafts_only = None
         if dire_drafts:
             dire_drafts = [x for x in dire_drafts if x not in dire]
@@ -372,6 +373,7 @@ def team(team, dataset):
             team=team,
             dataset_list=metadata_dict[team]["sets"],
             winrates=data["stat_win_rate"],
+            time_string=time_string
         )
 
 
