@@ -8,8 +8,50 @@
         <img class='img-fit' src={{plots["plot_drafts"]}}>
     {% else %}
         {% for draft in plots["plot_drafts"] %}
-            <img class='img-fit' src={{draft}}>
+        <canvas id='draftcanvas_{{loop.index}}' width="200" height="100"></canvas>
         {% endfor %}
+        <script>
+        {% for draft in plots["plot_drafts"] %}
+        //var img{{loop.index}} = document.createElement('img');
+        var img{{loop.index}} = new Image();
+        //document.body.appendChild(img{{loop.index}});
+        img{{loop.index}}.id = 'draftimg_{{loop.index}}';
+        //img{{loop.index}}.class = 'img-fit'
+
+        img{{loop.index}}.src = '{{draft}}'
+        var canvas{{loop.index}} = document.getElementById('draftcanvas_{{loop.index}}');
+
+        //img{{loop.index}}.addEventListener('load', draftCanvas(img{{loop.index}}, canvas{{loop.index}}));
+        img{{loop.index}}.onload  = draftCanvas(img{{loop.index}}, canvas{{loop.index}});
+        img{{loop.index}}.onload  = function(){
+            console.log("loaded {{draft}}");
+            console.log(img{{loop.index}}.width);
+            canvas{{loop.index}}.width = img{{loop.index}}.width;
+            canvas{{loop.index}}.height = img{{loop.index}}.height;
+
+            canvas{{loop.index}}.getContext('2d').drawImage(img{{loop.index}}, 0, 0);
+        };
+        {% endfor %}
+        function draftCanvas(image, canvas) {
+            console.log("loaded {{draft}}");
+            console.log(image.width);
+            canvas.width = image.width;
+            canvas.height = image.height;
+
+            canvas.getContext('2d').drawImage(image, 0, 0);
+        }
+        </script>
     {% endif %}
 {% endif %}
+<script>
+function draftCanvas(image, canvas) {
+    clearRect();
+    console.log("loaded {{draft}}");
+    console.log(img.width);
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    canvas.getContext('2d').drawImage(image, 0, 0);
+}
+</script>
 {% endblock vis %}
