@@ -10,7 +10,7 @@
         {% for draft in plots["plot_drafts"] %}
         <canvas id='draftcanvas_{{loop.index}}' width="200" height="100"></canvas>
         {% endfor %}
-        <script>
+        <script type="text/javascript">
         {% for draft in plots["plot_drafts"] %}
         //var img{{loop.index}} = document.createElement('img');
         var img{{loop.index}} = new Image();
@@ -24,12 +24,12 @@
         //img{{loop.index}}.addEventListener('load', draftCanvas(img{{loop.index}}, canvas{{loop.index}}));
         img{{loop.index}}.onload  = draftCanvas(img{{loop.index}}, canvas{{loop.index}});
         img{{loop.index}}.onload  = function(){
-            console.log("loaded {{draft}}");
-            console.log(img{{loop.index}}.width);
-            canvas{{loop.index}}.width = img{{loop.index}}.width;
-            canvas{{loop.index}}.height = img{{loop.index}}.height;
+            //console.log("loaded {{draft}}");
+            //console.log(img{{loop.index}}.width);
+            //canvas{{loop.index}}.width = img{{loop.index}}.width;
+            //canvas{{loop.index}}.height = img{{loop.index}}.height;
 
-            canvas{{loop.index}}.getContext('2d').drawImage(img{{loop.index}}, 0, 0);
+            canvas{{loop.index}}.getContext('2d').drawImage(img{{loop.index}}, 10, 0);
         };
         {% endfor %}
         function draftCanvas(image, canvas) {
@@ -39,6 +39,24 @@
             canvas.height = image.height;
 
             canvas.getContext('2d').drawImage(image, 0, 0);
+        }
+        function highLightLine(highlights, canvas, hasHeader=false){
+            var offset = 13;
+            if(hasHeader){
+                offset += 49;
+            }
+            var box_height = 145;
+            for(let i = 0; i <= highlights.length; i++ ){
+                let extra = highlights[i]
+                let y1 = highlights[i]*box_height + offset + extra;
+                let height = 130;
+                let x1 = 0;
+                let width = 9;
+
+                var ctx = canvas.getContext("2d");
+                ctx.fillStyle = "blue";
+                ctx.fillRect(x1, y1, width, height);
+            }
         }
         </script>
     {% endif %}
