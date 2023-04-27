@@ -45,9 +45,10 @@
             if(hasHeader){
                 offset += 49;
             }
-            var box_height = 145;
+            var box_height = 146;
             for(let i = 0; i <= highlights.length; i++ ){
-                let extra = highlights[i]
+                let extra = highlights[i];
+                extra = 0;
                 let y1 = highlights[i]*box_height + offset + extra;
                 let height = 130;
                 let x1 = 0;
