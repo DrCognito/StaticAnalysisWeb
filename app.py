@@ -346,6 +346,7 @@ def team(team, dataset):
             abort(404)
 
         data = json_file[dataset]
+        general_stats = json_file.get("general_stats")
         navigators = get_team_nav(team, dataset)
         dire = data["replays_dire"]
         radiant = data["replays_radiant"]
@@ -373,7 +374,8 @@ def team(team, dataset):
             team=team,
             dataset_list=metadata_dict[team]["sets"],
             winrates=data["stat_win_rate"],
-            time_string=time_string
+            time_string=time_string,
+            general_stats=general_stats
         )
 
 
