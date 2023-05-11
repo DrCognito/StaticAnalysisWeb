@@ -194,7 +194,6 @@ def get_team_summary(team, dataset="default", postfix="") -> dict:
 
         data = json_file[dataset]
 
-
         summary_dict = {}
         summary_dict["draft_summary"] = url_path(data.get(f"plot_draft_summary{postfix}"))
         summary_dict["hero_picks"] = url_path(data.get(f"plot_hero_picks{postfix}"))
@@ -203,6 +202,8 @@ def get_team_summary(team, dataset="default", postfix="") -> dict:
         summary_dict["pick_context"] = url_path(data.get(f"plot_pick_context{postfix}"))
         summary_dict["win_rate"] = url_path(data.get(f"plot_win_rate{postfix}"))
         summary_dict["rune"] = url_path(data.get(f"plot_rune_control{postfix}"))
+        summary_dict["pick_priority_first"] = url_path(data.get(f"pick_priority_first"))
+        summary_dict["pick_priority_second"] = url_path(data.get(f"pick_priority_second"))
         if postfix == "":
             summary_dict["pick_table"] = url_path(data.get("plot_picktables", None))
         else:
@@ -346,6 +347,7 @@ def team(team, dataset):
             abort(404)
 
         data = json_file[dataset]
+        general_stats = json_file.get("general_stats")
         navigators = get_team_nav(team, dataset)
         dire = data["replays_dire"]
         radiant = data["replays_radiant"]
@@ -373,7 +375,8 @@ def team(team, dataset):
             team=team,
             dataset_list=metadata_dict[team]["sets"],
             winrates=data["stat_win_rate"],
-            time_string=time_string
+            time_string=time_string,
+            general_stats=general_stats
         )
 
 

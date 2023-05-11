@@ -36,4 +36,7 @@ Data range: {{time_string}}
 <h2>Win Rates</h2>
 {{winrates}}
 {% endif %}
+{% if general_stats is not none %}
+{{general_stats}}
+{% endif %}
 {% endblock vis %}
