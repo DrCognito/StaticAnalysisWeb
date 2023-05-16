@@ -202,8 +202,7 @@ def get_team_summary(team, dataset="default", postfix="") -> dict:
         summary_dict["pick_context"] = url_path(data.get(f"plot_pick_context{postfix}"))
         summary_dict["win_rate"] = url_path(data.get(f"plot_win_rate{postfix}"))
         summary_dict["rune"] = url_path(data.get(f"plot_rune_control{postfix}"))
-        summary_dict["pick_priority_first"] = url_path(data.get(f"pick_priority_first"))
-        summary_dict["pick_priority_second"] = url_path(data.get(f"pick_priority_second"))
+        summary_dict["pick_priority"] = url_path(data.get(f"pick_priority"))
         if postfix == "":
             summary_dict["pick_table"] = url_path(data.get("plot_picktables", None))
         else:
