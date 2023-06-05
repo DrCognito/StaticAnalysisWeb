@@ -322,7 +322,11 @@ def index():
     teams.sort(key=str.lower)
     navigators = []
     for team in teams:
-        url = url_for("team", team=team, dataset=metadata_dict[team]["sets"][0])
+        try:
+            dataset = metadata_dict[team]["sets"][0]
+        except (KeyError, IndexError):
+            print(f"Missing data for {team}")
+        url = url_for("team", team=team, dataset=dataset)
         navigators.append((team, url))
     # navigators.append((None, None))
     # navigators.append(("Summaries", url_for("data_summary")))
