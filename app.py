@@ -354,8 +354,14 @@ def team(team, dataset):
         navigators = get_team_nav(team, dataset)
         dire = data["replays_dire"]
         radiant = data["replays_radiant"]
-        dire.sort(reverse=True)
-        radiant.sort(reverse=True)
+        if dire:
+            dire.sort(reverse=True)
+        else:
+            dire = []
+        if radiant:
+            radiant.sort(reverse=True)
+        else:
+            radiant = []
         replay_list = list(zip_longest(dire, radiant))
 
         dire_drafts = data.get('drafts_only_dire')
