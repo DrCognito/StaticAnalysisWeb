@@ -1,4 +1,4 @@
-from flask import Flask, abort, render_template, url_for, Blueprint
+from flask import Flask, abort, render_template, url_for, Blueprint, send_file
 from json import load as json_load
 
 # from .app import current_dir, update_meta_dict, metadata_dict, get_team_nav
@@ -181,3 +181,17 @@ def scan(team, dataset, side):
         team=team,
         active=side,
     )
+
+
+@plot_routes.route("/<string:team>/<string:dataset>/pdf_report.pdf")
+def pdf_report(team, dataset):
+    app.update_meta_dict()
+
+    route = pc.PDFReport(app.current_dir / app.metadata_dict[team]["path"], dataset)
+    report = route.plot_vars()
+    if not report:
+        return render_template("404.j2")
+    if not report.exists():
+        return render_template("404.j2")
+
+    return send_file(report, download_name=report.name)

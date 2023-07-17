@@ -156,6 +156,11 @@ def get_team_nav(team, dataset):
     navigators['summary'] += [("Summary (last 5)", url_for("summary", team=team, dataset=dataset, postfix="limit5"))]
     navigators['summary'] += [("Counters", url_for("counters", team=team, dataset=dataset))]
 
+    navigators['summary'] += [(
+        "Report",
+        url_for("plots.pdf_report", team=team, dataset=dataset))
+    ]
+
     return navigators
 
 

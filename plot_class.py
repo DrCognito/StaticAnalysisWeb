@@ -101,3 +101,13 @@ class Scan(AbstractPlot):
             plots["scan"] = app.url_path(data["plot_scan_{}".format(side)])
 
         return plots
+
+
+class PDFReport(AbstractPlot):
+    def plot_vars(self):
+        data = self.metadata[self.dataset]
+        report = data.get('pdf_report')
+        if report:
+            report = pathlib.Path(report)
+
+        return report
