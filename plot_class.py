@@ -24,8 +24,9 @@ class Drafts(AbstractPlot):
             plots["plot_drafts"] = app.url_path(drafts)
         if type(drafts) is list:
             plots["plot_drafts"] = []
-            for draft in drafts:
-                plots["plot_drafts"].append(app.url_path(draft))
+            plots["plot_drafts"] = drafts
+            # for draft in drafts:
+            #     plots["plot_drafts"].append(app.url_path(draft))
         return plots
 
 

@@ -30,7 +30,8 @@ def draft(team, dataset, side=None, postfix=None):
                                 navigators=navigators,
                                 team=team,
                                 plot_type="No Drafts",
-                                message=message)
+                                message=message,
+                                dataset=dataset)
         # abort(404)
     return render_template(
         "plots/draft.j2",
@@ -42,6 +43,7 @@ def draft(team, dataset, side=None, postfix=None):
         team=team,
         postfix=postfix,
         active=side,
+        dataset=dataset,
     )
 
 
