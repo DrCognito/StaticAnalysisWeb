@@ -3,8 +3,10 @@ from pathlib import Path
 from collections import defaultdict
 import json
 
-prio_list = ["BaliMajor", "After_Berlin", "Patch_7_33", "Scrims", ]
-
+prio_list = [
+             "Patch_7_34", "Scrims",
+             "Riyadh", "BaliMajor", "After_Berlin",
+]
 
 def sort_prios(x: str) -> int:
     # The comparison key works more naturally with reversed list.
