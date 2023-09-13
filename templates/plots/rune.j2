@@ -1,0 +1,9 @@
+{% extends "team.j2" %}
+{% block vis %}
+<h2>First Wisdom Runes</h2>
+{% if plots is not none %}
+    {% for p in plots %}
+        <img src={{p}}>
+    {% endfor %}
+{% endif %}
+{% endblock vis %}
