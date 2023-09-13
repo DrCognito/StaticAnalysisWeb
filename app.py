@@ -109,6 +109,9 @@ def get_team_nav(team, dataset):
         )
     ]
     navigators['dire'] += [
+        ("Runes", url_for("plots.rune", team=team, side="dire", dataset=dataset))
+    ]
+    navigators['dire'] += [
         ("Smokes", url_for("plots.smoke", team=team, side="dire", dataset=dataset))
     ]
     navigators['dire'] += [
@@ -144,6 +147,9 @@ def get_team_nav(team, dataset):
             "Positioning",
             url_for("plots.positioning", team=team, side="radiant", dataset=dataset),
         )
+    ]
+    navigators['radiant'] += [
+        ("Runes", url_for("plots.rune", team=team, side="radiant", dataset=dataset))
     ]
     navigators['radiant'] += [
         ("Smokes", url_for("plots.smoke", team=team, side="radiant", dataset=dataset))

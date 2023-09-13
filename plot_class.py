@@ -103,6 +103,17 @@ class Scan(AbstractPlot):
         return plots
 
 
+class Rune(AbstractPlot):
+    def plot_vars(self, side: str):
+
+        data = self.metadata[self.dataset]
+
+        key = f"rune_routes_7m_{side}"
+        plots = [app.url_path(p) for p in data.get(key, [])]
+
+        return plots
+
+
 class PDFReport(AbstractPlot):
     def plot_vars(self):
         data = self.metadata[self.dataset]

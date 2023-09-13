@@ -183,7 +183,29 @@ def scan(team, dataset, side):
     )
 
 
-@plot_routes.route("/<string:team>/<string:dataset>/pdf_report.pdf")
+@plot_routes.route("/<string:team>/<string:dataset>/<string:side>/runes.html")
+def rune(team, dataset, side):
+    app.update_meta_dict()
+    rune = pc.Rune(app.current_dir / app.metadata_dict[team]["path"], dataset)
+    navigators = app.get_team_nav(team, dataset)
+    try:
+        plots = rune.plot_vars(side)
+    except ValueError:
+        return render_template("404.j2")
+
+    return render_template(
+        "plots/rune.j2",
+        plots=plots,
+        navigators=navigators,
+        provider="plots.rune",
+        dataset_list=app.metadata_dict[team]["sets"],
+        side=side,
+        team=team,
+        active=side,
+    )
+
+
+@plot_routes.route("/<string:team>/<string:dataset>/report")
 def pdf_report(team, dataset):
     app.update_meta_dict()
 
