@@ -4,8 +4,8 @@ from collections import defaultdict
 import json
 
 prio_list = [
-             "Patch_7_34", "Scrims",
-             "Riyadh", "BaliMajor", "After_Berlin",
+             "Patch_7_34", "Riyadh", "Scrims",
+             "BaliMajor", "After_Berlin",
 ]
 
 def sort_prios(x: str) -> int:
@@ -37,6 +37,9 @@ def make_index(
                 #     print(f"Metadata for {name} has set {data_set} but no files in: {data_set_path}")
             output[name]["sets"].sort(key=str.lower)
             output[name]["sets"].sort(key=sort_prios, reverse=True)
+        # Remove the team if we have no results for it!
+        if len(output[name]["sets"]) == 0:
+            output.pop(name)
 
     with open(out_path, "w") as f:
         json.dump(output, f)
