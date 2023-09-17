@@ -205,7 +205,7 @@ def rune(team, dataset, side):
     )
 
 
-@plot_routes.route("/<string:team>/<string:dataset>/report")
+@plot_routes.route("/<string:team>/<string:dataset>/report.pdf")
 def pdf_report(team, dataset):
     app.update_meta_dict()
 
@@ -216,4 +216,7 @@ def pdf_report(team, dataset):
     if not report.exists():
         return render_template("404.j2")
 
-    return send_file(report, download_name=report.name)
+    return send_file(
+        report,
+        download_name=report.name,
+        mimetype='application/pdf')
