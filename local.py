@@ -4,8 +4,9 @@ from collections import defaultdict
 import json
 
 prio_list = [
-             "TI2023", "Patch_7_34",
+             "2024",
              "Scrims",
+             "PostTI2023", "Patch_7_34",
 ]
 
 def sort_prios(x: str) -> int:
