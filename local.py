@@ -4,8 +4,12 @@ from collections import defaultdict
 import json
 
 prio_list = [
-             "2024",
+             "7_35d",
              "Scrims",
+             'DL S22 Group',
+             "February",
+             "LateJanuary",
+             "2024",
              "PostTI2023", "Patch_7_34",
 ]
 
