@@ -220,3 +220,20 @@ def pdf_report(team, dataset):
         report,
         download_name=report.name,
         mimetype='application/pdf')
+
+
+@plot_routes.route("/<string:team>/<string:dataset>/mini_report.pdf")
+def pdf_mini_report(team, dataset):
+    app.update_meta_dict()
+
+    route = pc.PDFMiniReport(app.current_dir / app.metadata_dict[team]["path"], dataset)
+    report = route.plot_vars()
+    if not report:
+        return render_template("404.j2")
+    if not report.exists():
+        return render_template("404.j2")
+
+    return send_file(
+        report,
+        download_name=report.name,
+        mimetype='application/pdf')

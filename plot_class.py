@@ -122,3 +122,13 @@ class PDFReport(AbstractPlot):
             report = pathlib.Path(report)
 
         return report
+
+
+class PDFMiniReport(AbstractPlot):
+    def plot_vars(self):
+        data = self.metadata[self.dataset]
+        report = data.get('pdf_mini_report')
+        if report:
+            report = pathlib.Path(report)
+
+        return report
