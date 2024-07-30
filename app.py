@@ -166,6 +166,10 @@ def get_team_nav(team, dataset):
         "Report",
         url_for("plots.pdf_report", team=team, dataset=dataset))
     ]
+    navigators['summary'] += [(
+        "Mini Report",
+        url_for("plots.pdf_mini_report", team=team, dataset=dataset))
+    ]
 
     return navigators
 
