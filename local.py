@@ -4,8 +4,7 @@ from collections import defaultdict
 import json
 
 prio_list = [
-    "EliteLeague",
-    "Birmingham",
+    "7_37c",
     "Scrims",
 ]
 
