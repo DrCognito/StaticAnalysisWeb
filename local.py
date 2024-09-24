@@ -5,6 +5,7 @@ import json
 
 prio_list = [
     "7_37c",
+    "PostTI2024",
     "Scrims",
 ]
 
