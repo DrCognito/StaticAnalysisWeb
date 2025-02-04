@@ -2,8 +2,8 @@ from flask import Flask, abort, render_template, url_for, Blueprint, send_file
 from json import load as json_load
 
 # from .app import current_dir, update_meta_dict, metadata_dict, get_team_nav
-import app
-import plot_class as pc
+import staticanalysisweb.app as app
+import staticanalysisweb.plot_class as pc
 
 plot_routes = Blueprint("plots", __name__)
 

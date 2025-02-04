@@ -1,5 +1,5 @@
 from flask_frozen import Freezer
-from app import app
+from staticanalysisweb.app import app
 from local import make_index
 
 # Stop frozen flask deleting netlify.toml

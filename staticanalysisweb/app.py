@@ -3,7 +3,7 @@ from json import load as json_load
 from pathlib import Path
 from urllib.parse import unquote
 from flask import Flask, abort, render_template, url_for
-import plot_routes
+import staticanalysisweb.plot_routes as plot_routes
 
 
 app = Flask(__name__)

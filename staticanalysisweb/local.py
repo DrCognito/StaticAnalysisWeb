@@ -1,8 +1,10 @@
-from app import app
+from staticanalysisweb.app import app
 from pathlib import Path
 from collections import defaultdict
 import json
 
+print(f"Root paths {app.root_path}")
+print(f"Instance paths {app.instance_path}")
 prio_list = [
     "DreamLeague24",
     "7_37d",

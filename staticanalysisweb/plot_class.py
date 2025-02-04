@@ -1,6 +1,6 @@
 import json as js
 import pathlib
-import app
+import staticanalysisweb.app as app
 
 
 class AbstractPlot:
