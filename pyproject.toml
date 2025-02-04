@@ -2,7 +2,7 @@
 name = "staticanalysisweb"
 version = "0.1.0"
 description = ""
-authors = ["Matthew Chadwick <dr.m.chadwick@gmail.com>"]
+authors = ["Matthew Chadwick"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
