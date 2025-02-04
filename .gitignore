@@ -112,6 +112,8 @@ venv.bak/
 #static files
 static/data_summary/
 static/plots/
+staticanalysisweb/static/data_summary/
+staticanalysisweb/static/plots/
 
 #frozen-flask build dir
 build/
