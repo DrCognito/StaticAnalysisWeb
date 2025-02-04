@@ -1,9 +1,11 @@
 from flask_frozen import Freezer
 from staticanalysisweb.app import app
-from local import make_index
+from staticanalysisweb.local import make_index
+from staticanalysisweb import CONFIG
 
 # Stop frozen flask deleting netlify.toml
 app.config['FREEZER_DESTINATION_IGNORE'] = ['netlify.toml']
+app.config['FREEZER_DESTINATION'] = CONFIG['FREEZER_DESTINATION']
 freezer = Freezer(app)
 
 # @freezer.register_generator
