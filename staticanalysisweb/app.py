@@ -114,9 +114,9 @@ def get_team_nav(team, dataset):
     navigators['dire'] += [
         ("Smokes", url_for("plots.smoke", team=team, side="dire", dataset=dataset))
     ]
-    navigators['dire'] += [
-        ("Scans", url_for("plots.scan", team=team, side="dire", dataset=dataset))
-    ]
+    # navigators['dire'] += [
+    #     ("Scans", url_for("plots.scan", team=team, side="dire", dataset=dataset))
+    # ]
 
     # Radiant
     navigators['radiant'] = [
@@ -154,9 +154,9 @@ def get_team_nav(team, dataset):
     navigators['radiant'] += [
         ("Smokes", url_for("plots.smoke", team=team, side="radiant", dataset=dataset))
     ]
-    navigators['radiant'] += [
-        ("Scans", url_for("plots.scan", team=team, side="radiant", dataset=dataset))
-    ]
+    # navigators['radiant'] += [
+    #     ("Scans", url_for("plots.scan", team=team, side="radiant", dataset=dataset))
+    # ]
 
     navigators['summary'] = [("Summary", url_for("summary", team=team, dataset=dataset))]
     navigators['summary'] += [("Summary (last 5)", url_for("summary", team=team, dataset=dataset, postfix="limit5"))]
@@ -183,14 +183,14 @@ def get_nav_report():
     navigators += [("Wards", "#dire_wards")]
     navigators += [("Positioning", "#dire_pos")]
     navigators += [("Smokes", "#dire_smoke")]
-    navigators += [("Scans", "#dire_scan")]
+    # navigators += [("Scans", "#dire_scan")]
 
     navigators += [("RADIANT", "#radiant")]
     navigators += [("Drafts", "#radiant_draft")]
     navigators += [("Wards", "#radiant_wards")]
     navigators += [("Positioning", "#radiant_pos")]
     navigators += [("Smokes", "#radiant_smoke")]
-    navigators += [("Scans", "#radiant_scan")]
+    # navigators += [("Scans", "#radiant_scan")]
 
     navigators += [(None, None)]
     navigators += [("Summary", "#summary")]
