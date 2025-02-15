@@ -274,9 +274,10 @@ def render_plot_template(team, side, plot, dataset="default", postfix=""):
                 "plots/" + p.replace("\\", "/")
                 for p in data["plot_ward_{}".format(side)]
             ]
+            n_replays = len(data.get(f"replays_{side}", default = []))
 
             return render_template(
-                "plots/warding.j2", plots=plots, navigators=navigators, team=team
+                "plots/warding.j2", plots=plots, navigators=navigators, team=team, replays=n_replays
             )
         if plot == "wards_seperate":
 

@@ -49,6 +49,7 @@ def draft(team, dataset, side=None, postfix=None):
 def wards(team, dataset, side):
     app.update_meta_dict()
     wards = pc.Wards(app.current_dir / app.metadata_dict[team]["path"], dataset)
+    n_replays = wards.n_replays(side)
     navigators = app.get_team_nav(team, dataset)
     try:
         plots = wards.plot_vars(side)
@@ -64,6 +65,7 @@ def wards(team, dataset, side):
         side=side,
         team=team,
         active=side,
+        replays=n_replays
     )
 
 

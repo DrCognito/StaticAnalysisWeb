@@ -2,6 +2,7 @@
 {% block vis %}
 {% if plots['ward_plots'] is not none %}
 <h2>Wards</h2><br>
+Warding information from {{replays}} replays.
     {% for plot in plots['ward_plots'] %}
         <h2>{{plots['ward_title'][loop.index - 1]}}</h2><br>
         <img src={{url_for('static', filename=plot)}}><br>
