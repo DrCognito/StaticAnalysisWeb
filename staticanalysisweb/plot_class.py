@@ -78,6 +78,19 @@ class PregamePositioning(AbstractPlot):
         return plots
 
 
+class TormentorPositioning(AbstractPlot):
+    def plot_vars(self, side: str):
+
+        data = self.metadata[self.dataset]
+        plots = {}
+        try:
+            plots["tormentor_routes"] = ["plots/" + p.replace("\\", "/") for p in data[f"tormentor_routes_{side}"]]
+        except KeyError:
+            pass
+
+        return plots
+
+
 class Positioning(AbstractPlot):
     def plot_vars(self, side: str):
 

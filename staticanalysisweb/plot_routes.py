@@ -117,6 +117,30 @@ def pregame_positioning(team, dataset, side):
     )
 
 
+@plot_routes.route("/<string:team>/<string:dataset>/<string:side>/tormentor_routes.html")
+def tormentor_routes(team, dataset, side):
+    app.update_meta_dict()
+    tormentor_routes = pc.TormentorPositioning(
+        app.current_dir / app.metadata_dict[team]["path"], dataset
+    )
+    navigators = app.get_team_nav(team, dataset)
+    try:
+        plots = tormentor_routes.plot_vars(side)
+    except ValueError:
+        abort(404)
+
+    return render_template(
+        "plots/tormentors.j2",
+        plots=plots,
+        navigators=navigators,
+        provider="plots.tormentor_routes",
+        dataset_list=app.metadata_dict[team]["sets"],
+        side=side,
+        team=team,
+        active=side,
+    )
+
+
 @plot_routes.route("/<string:team>/<string:dataset>/<string:side>/positioning.html")
 def positioning(team, dataset, side):
     app.update_meta_dict()
