@@ -6,9 +6,11 @@ import json
 # print(f"Root paths {app.root_path}")
 # print(f"Instance paths {app.instance_path}")
 prio_list = [
-    "2025",
+    "7_38",
+    "BlastSlam2",
     "FissurePG1",
     "Scrims",
+    "2025",
 ]
 
 def sort_prios(x: str) -> int:
