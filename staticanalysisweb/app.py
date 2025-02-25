@@ -322,6 +322,10 @@ def render_plot_template(team, side, plot, dataset="default", postfix=""):
         if plot == "smoke":
             if data["plot_smoke_{}".format(side)] is not None:
                 plots["smoke"] = url_path(data["plot_smoke_{}".format(side)])
+            if data[f"table_smoke_{side}"] is not None:
+                plots["smoke_table"] = data[f"table_smoke_{side}"]
+            else:
+                plots["smoke_table"] = None
             return render_template(
                 "plots/smoke.j2", plots=plots, navigators=navigators, team=team
             )
