@@ -4,4 +4,10 @@
 {% if plots["smoke"] is not none %}
     <img src={{plots["smoke"]}}>
 {% endif %}
+{% if plots["smoke_table"] is not none %}
+    {% for time, table in plots["smoke_table"].items() %}
+    <h2>{{time}}</h2>
+    {{table}}
+    {% endfor %}
+{% endif %}
 {% endblock vis %}
