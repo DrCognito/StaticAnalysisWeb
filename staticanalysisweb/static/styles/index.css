@@ -190,3 +190,8 @@ body{
   background-color: #04AA6D;
   color: white;
 }
+
+/* Table Style */
+table {
+  border-collapse: collapse;
+}
