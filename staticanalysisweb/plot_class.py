@@ -111,7 +111,7 @@ class Smoke(AbstractPlot):
         plots = {}
         if data["plot_smoke_{}".format(side)] is not None:
             plots["smoke"] = app.url_path(data["plot_smoke_{}".format(side)])
-        if data[f"table_smoke_{side}"] is not None:
+        if data.get(f"table_smoke_{side}") is not None:
             plots["smoke_table"] = data[f"table_smoke_{side}"]
         else:
             plots["smoke_table"] = None
