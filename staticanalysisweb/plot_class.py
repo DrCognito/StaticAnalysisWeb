@@ -137,6 +137,7 @@ class Rune(AbstractPlot):
 
         key = f"rune_routes_7m_{side}"
         plots = [app.url_path(p) for p in data.get(key, [])]
+        plots = reversed(plots)
 
         return plots
 
