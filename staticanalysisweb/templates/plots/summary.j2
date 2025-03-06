@@ -8,6 +8,10 @@
     <h2>Hero Picks<h2><br>
     <img class='img-fit' src={{summary["hero_picks"]}}><br>
 {% endif %}
+{% if summary["hero_picks_portrait"] is not none %}
+    <h2>Hero Picks<h2><br>
+    <img class='img-fit' src={{summary["hero_picks_portrait"]}}><br>
+{% endif %}
 {% if summary["pick_table"] is not none %}
     <h2>Pick Table<h2><br>
     <img class='img-fit' src={{summary["pick_table"]}}><br>
