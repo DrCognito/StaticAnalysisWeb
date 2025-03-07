@@ -35,12 +35,14 @@ def update_meta_dict(index: Path = ("./index.json")):
 data_summary_dir = Path("./static/data_summary")
 
 
-def url_path(path_in: str, endpoint="static"):
+def url_path(path_in: str, endpoint="static", fourohfour = True):
     if path_in is not None:
         path_in = path_in.replace("\\", "/")
         path_in = "plots/" + path_in
-    else:
+    elif fourohfour:
         path_in = "404.png"
+    else:
+        return None
     return url_for(endpoint, filename=path_in)
 
 
@@ -224,18 +226,18 @@ def get_team_summary(team, dataset="default", postfix="") -> dict:
         data = json_file[dataset]
 
         summary_dict = {}
-        summary_dict["draft_summary"] = url_path(data.get(f"plot_draft_summary{postfix}"))
-        summary_dict["hero_picks"] = url_path(data.get(f"plot_hero_picks{postfix}"))
-        summary_dict["hero_picks_portrait"] = url_path(data.get(f"hero_picks_portrait"))
-        summary_dict["hero_flex"] = url_path(data.get(f"plot_hero_flex{postfix}"))
-        summary_dict["flex_pubs"] = url_path(data.get(f"plot_flex_pubs"))
-        summary_dict["pair_picks"] = url_path(data.get(f"plot_pair_picks{postfix}"))
-        summary_dict["pick_context"] = url_path(data.get(f"plot_pick_context{postfix}"))
-        summary_dict["win_rate"] = url_path(data.get(f"plot_win_rate{postfix}"))
-        summary_dict["rune"] = url_path(data.get(f"plot_rune_control{postfix}"))
-        summary_dict["pick_priority"] = url_path(data.get(f"pick_priority"))
+        summary_dict["draft_summary"] = url_path(data.get(f"plot_draft_summary{postfix}"), fourohfour=False)
+        summary_dict["hero_picks"] = url_path(data.get(f"plot_hero_picks{postfix}"), fourohfour=False)
+        summary_dict["hero_picks_portrait"] = url_path(data.get(f"hero_picks_portrait"), fourohfour=False)
+        summary_dict["hero_flex"] = url_path(data.get(f"plot_hero_flex{postfix}"), fourohfour=False)
+        summary_dict["flex_pubs"] = url_path(data.get(f"plot_flex_pubs"), fourohfour=False)
+        summary_dict["pair_picks"] = url_path(data.get(f"plot_pair_picks{postfix}"), fourohfour=False)
+        summary_dict["pick_context"] = url_path(data.get(f"plot_pick_context{postfix}"), fourohfour=False)
+        summary_dict["win_rate"] = url_path(data.get(f"plot_win_rate{postfix}"), fourohfour=False)
+        summary_dict["rune"] = url_path(data.get(f"plot_rune_control{postfix}"), fourohfour=False)
+        summary_dict["pick_priority"] = url_path(data.get(f"pick_priority"), fourohfour=False)
         if postfix == "":
-            summary_dict["pick_table"] = url_path(data.get("plot_picktables", None))
+            summary_dict["pick_table"] = url_path(data.get("plot_picktables", None), fourohfour=False)
         else:
             summary_dict["pick_table"] = None
 
