@@ -19,19 +19,19 @@
     {% endfor %}
     <hr>
 {% endif %}
-{% if "dire" in navigators %}
-    <button class="accordion header highlight", id="dire">DIRE</button>
+{% if "radiant" in navigators %}
+    <button class="accordion header highlight", id="radiant">RADIANT</button>
     <div class="panel">
-    {% for nav in navigators["dire"] %}
+    {% for nav in navigators["radiant"] %}
         <a href={{nav[1]}}>{{nav[0]}}</a>
     {% endfor %}
     </div>
     <hr>
 {% endif %}
-{% if "radiant" in navigators %}
-    <button class="accordion header highlight", id="radiant">RADIANT</button>
+{% if "dire" in navigators %}
+    <button class="accordion header highlight", id="dire">DIRE</button>
     <div class="panel">
-    {% for nav in navigators["radiant"] %}
+    {% for nav in navigators["dire"] %}
         <a href={{nav[1]}}>{{nav[0]}}</a>
     {% endfor %}
     </div>

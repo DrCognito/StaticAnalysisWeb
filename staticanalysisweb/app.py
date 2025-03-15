@@ -194,6 +194,13 @@ def get_nav_report():
     """Produces navbar for reports with simple internal link.
     """
     navigators = [(team, "#top")]
+
+    navigators += [("RADIANT", "#radiant")]
+    navigators += [("Drafts", "#radiant_draft")]
+    navigators += [("Wards", "#radiant_wards")]
+    navigators += [("Positioning", "#radiant_pos")]
+    navigators += [("Smokes", "#radiant_smoke")]
+    
     navigators += [("DIRE", "#dire")]
     navigators += [("Drafts", "#dire_draft")]
     navigators += [("Wards", "#dire_wards")]
@@ -201,11 +208,6 @@ def get_nav_report():
     navigators += [("Smokes", "#dire_smoke")]
     # navigators += [("Scans", "#dire_scan")]
 
-    navigators += [("RADIANT", "#radiant")]
-    navigators += [("Drafts", "#radiant_draft")]
-    navigators += [("Wards", "#radiant_wards")]
-    navigators += [("Positioning", "#radiant_pos")]
-    navigators += [("Smokes", "#radiant_smoke")]
     # navigators += [("Scans", "#radiant_scan")]
 
     navigators += [(None, None)]
