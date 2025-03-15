@@ -12,6 +12,16 @@ class AbstractPlot:
     def plot_vars(self, side: str):
         pass
 
+    def n_replays(self, side: str):
+        data = self.metadata[self.dataset]
+        replays = data.get(f"replays_{side}", [])
+        if replays:
+            n_replays = len(replays)
+        else:
+            n_replays = 0
+
+        return n_replays
+
 
 class Drafts(AbstractPlot):
     def plot_vars(self, key: str):
@@ -30,15 +40,6 @@ class Drafts(AbstractPlot):
 
 
 class Wards(AbstractPlot):
-    def n_replays(self, side: str):
-        data = self.metadata[self.dataset]
-        replays = data.get(f"replays_{side}", [])
-        if replays:
-            n_replays = len(replays)
-        else:
-            n_replays = 0
-
-        return n_replays
 
     def plot_vars(self, side: str):
 
