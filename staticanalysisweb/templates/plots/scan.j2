@@ -1,6 +1,7 @@
 {% extends "team.j2" %}
 {% block vis %}
 <h2>Scans</h2>
+Scan information from {{replays}} replays.<br>
 {% if plots["scan"] is not none %}
     <img src={{plots["scan"]}}>
 {% endif %}

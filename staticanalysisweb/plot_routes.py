@@ -41,7 +41,7 @@ def draft(team, dataset, side=None, postfix=None):
         side=side,
         team=team,
         postfix=postfix,
-        active=side,
+        active=side
     )
 
 
@@ -80,7 +80,7 @@ def wards_separate(team, dataset, side):
         plots = wards_separate.plot_vars(side)
     except ValueError:
         abort(404)
-
+    n_replays = wards_separate.n_replays(side)
     return render_template(
         "plots/warding_seperate.j2",
         plots=plots,
@@ -90,6 +90,7 @@ def wards_separate(team, dataset, side):
         side=side,
         team=team,
         active=side,
+        replays=n_replays
     )
 
 
@@ -104,7 +105,7 @@ def pregame_positioning(team, dataset, side):
         plots = pregame_positioning.plot_vars(side)
     except ValueError:
         abort(404)
-
+    n_replays = pregame_positioning.n_replays(side)
     return render_template(
         "plots/pregame_positioning.j2",
         plots=plots,
@@ -114,6 +115,7 @@ def pregame_positioning(team, dataset, side):
         side=side,
         team=team,
         active=side,
+        replays=n_replays
     )
 
 
@@ -128,7 +130,7 @@ def tormentor_routes(team, dataset, side):
         plots = tormentor_routes.plot_vars(side)
     except ValueError:
         abort(404)
-
+    n_replays = tormentor_routes.n_replays(side)
     return render_template(
         "plots/tormentors.j2",
         plots=plots,
@@ -138,6 +140,7 @@ def tormentor_routes(team, dataset, side):
         side=side,
         team=team,
         active=side,
+        replays=n_replays
     )
 
 
@@ -152,7 +155,7 @@ def positioning(team, dataset, side):
         plots = positioning.plot_vars(side)
     except ValueError:
         abort(404)
-
+    n_replays = positioning.n_replays(side)
     return render_template(
         "plots/positioning.j2",
         plots=plots,
@@ -162,6 +165,7 @@ def positioning(team, dataset, side):
         side=side,
         team=team,
         active=side,
+        replays=n_replays
     )
 
 
@@ -174,7 +178,7 @@ def smoke(team, dataset, side):
         plots = smoke.plot_vars(side)
     except ValueError:
         abort(404)
-
+    n_replays = smoke.n_replays(side)
     return render_template(
         "plots/smoke.j2",
         plots=plots,
@@ -184,6 +188,7 @@ def smoke(team, dataset, side):
         side=side,
         team=team,
         active=side,
+        replays=n_replays
     )
 
 
@@ -196,7 +201,7 @@ def scan(team, dataset, side):
         plots = scan.plot_vars(side)
     except ValueError:
         abort(404)
-
+    n_replays = scan.n_replays(side)
     return render_template(
         "plots/scan.j2",
         plots=plots,
@@ -206,6 +211,7 @@ def scan(team, dataset, side):
         side=side,
         team=team,
         active=side,
+        replays=n_replays
     )
 
 
@@ -218,7 +224,7 @@ def rune(team, dataset, side):
         plots = rune.plot_vars(side)
     except ValueError:
         return render_template("404.j2")
-
+    n_replays = rune.n_replays(side)
     return render_template(
         "plots/rune.j2",
         plots=plots,
@@ -228,6 +234,7 @@ def rune(team, dataset, side):
         side=side,
         team=team,
         active=side,
+        replays=n_replays
     )
 
 

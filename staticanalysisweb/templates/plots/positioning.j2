@@ -2,6 +2,7 @@
 {% block vis %}
 {% if plots['pos_plots'] is not none %}
 <h2>Player Positions</h2><br>
+Position information from {{replays}} replays.<br>
     {% for plot in plots['pos_plots'] %}
         <h2>{{plots['pos_names'][loop.index - 1]}}</h2><br>
         <img src={{url_for('static', filename=plot)}}><br>

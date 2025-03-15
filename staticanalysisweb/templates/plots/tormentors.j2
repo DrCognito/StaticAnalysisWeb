@@ -1,6 +1,7 @@
 {% extends "team.j2" %}
 {% block vis %}
 <h2>First Tormentor Kill</h2>
+Tormentor information from {{replays}} replays.<br>
 From 14 minutes to the kill time.<br>
 {% for plot in plots['tormentor_routes'] %}
 <img src={{url_for('static', filename=plot)}}><br>

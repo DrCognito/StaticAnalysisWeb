@@ -2,6 +2,7 @@
 {% block vis %}
 <h2>Smokes</h2>
 {% if plots["smoke"] is not none %}
+Smoke information from {{replays}} replays.<br>
     <img src={{plots["smoke"]}}>
 {% endif %}
 {% if plots["smoke_table"] is not none %}
