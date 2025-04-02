@@ -1,0 +1,10 @@
+{% extends "team.j2" %}
+{% block vis %}
+<h2>Stacks</h2>
+{% if plots["plot_stack"] is not none %}
+    <img src={{plots["plot_stack"]}}><br>
+{% endif %}
+{% if plots["table_stack"] is not none %}
+    {{plots["table_stack"]}}
+{% endif %}
+{% endblock vis %}

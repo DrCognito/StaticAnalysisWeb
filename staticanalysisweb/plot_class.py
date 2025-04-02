@@ -90,6 +90,19 @@ class TormentorPositioning(AbstractPlot):
             pass
 
         return plots
+    
+    
+class Stacks(AbstractPlot):
+    def plot_vars(self, side: str):
+
+        data = self.metadata[self.dataset]
+        plots = {}
+        if data.get(f"plot_{side}_stacks") is not None:
+            plots["plot_stack"] = app.url_path(data[f"plot_{side}_stacks"])
+        if data.get(f"table_{side}_stacks") is not None:
+            plots["table_stack"] = data[f"table_{side}_stacks"]
+
+        return plots
 
 
 class Positioning(AbstractPlot):

@@ -144,6 +144,31 @@ def tormentor_routes(team, dataset, side):
     )
 
 
+@plot_routes.route("/<string:team>/<string:dataset>/<string:side>/stacks.html")
+def stacks_plot(team, dataset, side):
+    app.update_meta_dict()
+    stacks = pc.Stacks(
+        app.current_dir / app.metadata_dict[team]["path"], dataset
+    )
+    navigators = app.get_team_nav(team, dataset)
+    try:
+        plots = stacks.plot_vars(side)
+    except ValueError:
+        abort(404)
+    n_replays = stacks.n_replays(side)
+    return render_template(
+        "plots/stacks.j2",
+        plots=plots,
+        navigators=navigators,
+        provider="plots.stacks_plot",
+        dataset_list=app.metadata_dict[team]["sets"],
+        side=side,
+        team=team,
+        active=side,
+        replays=n_replays
+    )
+
+
 @plot_routes.route("/<string:team>/<string:dataset>/<string:side>/positioning.html")
 def positioning(team, dataset, side):
     app.update_meta_dict()
