@@ -123,6 +123,13 @@ def get_team_nav(team, dataset):
                     side="dire", dataset=dataset),
         )
     ]
+    navigators['dire'] += [
+        (
+            "Stacks",
+            url_for("plots.stacks_plot", team=team,
+                    side="dire", dataset=dataset),
+        )
+    ]
     # navigators['dire'] += [
     #     ("Scans", url_for("plots.scan", team=team, side="dire", dataset=dataset))
     # ]
@@ -167,6 +174,13 @@ def get_team_nav(team, dataset):
         (
             "Tormentors",
             url_for("plots.tormentor_routes", team=team,
+                    side="radiant", dataset=dataset),
+        )
+    ]
+    navigators['radiant'] += [
+        (
+            "Stacks",
+            url_for("plots.stacks_plot", team=team,
                     side="radiant", dataset=dataset),
         )
     ]
@@ -233,6 +247,7 @@ def get_team_summary(team, dataset="default", postfix="") -> dict:
         summary_dict["hero_picks_portrait"] = url_path(data.get(f"hero_picks_portrait"), fourohfour=False)
         summary_dict["hero_flex"] = url_path(data.get(f"plot_hero_flex{postfix}"), fourohfour=False)
         summary_dict["flex_pubs"] = url_path(data.get(f"plot_flex_pubs"), fourohfour=False)
+        summary_dict["stack_summary"] = url_path(data.get(f"plot_summary_stacks"), fourohfour=False)
         summary_dict["pair_picks"] = url_path(data.get(f"plot_pair_picks{postfix}"), fourohfour=False)
         summary_dict["pick_context"] = url_path(data.get(f"plot_pick_context{postfix}"), fourohfour=False)
         summary_dict["win_rate"] = url_path(data.get(f"plot_win_rate{postfix}"), fourohfour=False)
