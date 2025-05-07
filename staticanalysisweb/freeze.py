@@ -2,6 +2,7 @@ from flask_frozen import Freezer
 from staticanalysisweb.app import app
 from staticanalysisweb.local import make_index
 from staticanalysisweb import CONFIG
+from pathlib import Path
 
 
 def skip_existing(url: str, filename: str):
@@ -30,5 +31,6 @@ freezer = Freezer(app)
 
 if __name__ == "__main__":
     # Update the index before we freeze
-    make_index()
+    plot_dir = Path(CONFIG['PLOT_DIRECTORY'])
+    index = make_index(plot_dir=plot_dir)
     freezer.freeze()

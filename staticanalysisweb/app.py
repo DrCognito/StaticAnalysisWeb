@@ -3,6 +3,7 @@ from json import load as json_load
 from pathlib import Path
 from urllib.parse import unquote
 from flask import Flask, abort, render_template, url_for
+from staticanalysisweb import CONFIG
 import staticanalysisweb.plot_routes as plot_routes
 
 
@@ -47,7 +48,7 @@ def url_path(path_in: str, endpoint="static", fourohfour = True):
 
 
 def get_meta_nav():
-    meta_json = Path('./static/meta_plots/meta.json')
+    meta_json = Path(CONFIG['METAPLOT_DIRECTORY'])
     # Categories of meta to add to navs
     categories = ["Division 1", "Division 2", "Tournaments", "Pubs", "Pub Regions"]
     navigators = {}

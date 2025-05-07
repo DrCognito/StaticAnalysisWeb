@@ -1,3 +1,4 @@
+from staticanalysisweb import CONFIG
 from staticanalysisweb.app import app
 from pathlib import Path
 from collections import defaultdict
@@ -52,6 +53,7 @@ def make_index(
 
 
 if __name__ == "__main__":
-    index = make_index()
+    plot_dir = Path(CONFIG['PLOT_DIRECTORY'])
+    index = make_index(plot_dir=plot_dir)
 
     app.run(port=8000)

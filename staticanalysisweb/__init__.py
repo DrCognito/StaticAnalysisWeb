@@ -9,3 +9,5 @@ except FileNotFoundError:
     print("Failed to load toml config file.")
     print(f"Expected path is {config_path.resolve()}")
     exit
+    
+STATIC = Path(CONFIG['PLOT_DIRECTORY'])
