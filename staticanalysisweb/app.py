@@ -7,7 +7,7 @@ from staticanalysisweb import CONFIG
 import staticanalysisweb.plot_routes as plot_routes
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder=CONFIG['STATIC_FOLDER'])
 app.register_blueprint(plot_routes.plot_routes)
 current_dir = Path.cwd()
 
