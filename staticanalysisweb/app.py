@@ -248,6 +248,7 @@ def get_team_summary(team, dataset="default", postfix="") -> dict:
         summary_dict["hero_picks_portrait"] = url_path(data.get(f"hero_picks_portrait"), fourohfour=False)
         summary_dict["hero_flex"] = url_path(data.get(f"plot_hero_flex{postfix}"), fourohfour=False)
         summary_dict["flex_pubs"] = url_path(data.get(f"plot_flex_pubs"), fourohfour=False)
+        summary_dict["hero_pubs"] = url_path(data.get(f"hero_pubs"), fourohfour=False)
         summary_dict["stack_summary"] = url_path(data.get(f"plot_summary_stacks"), fourohfour=False)
         summary_dict["pair_picks"] = url_path(data.get(f"plot_pair_picks{postfix}"), fourohfour=False)
         summary_dict["pick_context"] = url_path(data.get(f"plot_pick_context{postfix}"), fourohfour=False)

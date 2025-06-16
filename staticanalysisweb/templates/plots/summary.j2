@@ -11,6 +11,10 @@
 {% if summary["hero_picks_portrait"] is not none %}
     <img class='img-fit' src={{summary["hero_picks_portrait"]}}><br>
 {% endif %}
+{% if summary["hero_pubs"] is not none %}
+    <h2>Pub Picks<h2><br>
+    <img class='img-fit' src={{summary["hero_pubs"]}}><br>
+{% endif %}
 {% if summary["pick_table"] is not none %}
     <h2>Pick Table<h2><br>
     <img class='img-fit' src={{summary["pick_table"]}}><br>
@@ -22,6 +26,9 @@
 {% if summary["hero_flex"] is not none %}
     <h2>Flex Picks<h2><br>
     <img class='img-fit' src={{summary["hero_flex"]}}><br>
+{% endif %}
+{% if summary["flex_pubs"] is not none %}
+    <img class='img-fit' src={{summary["flex_pubs"]}}><br>
 {% endif %}
 {% if summary["stack_summary"] is not none %}
     <h2>Stack Summary<h2><br>
