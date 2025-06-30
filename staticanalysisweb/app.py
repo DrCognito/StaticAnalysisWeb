@@ -598,24 +598,23 @@ def report(team, dataset="default"):
     )
 
 @app.route("/meta/")
-@app.route("/meta/<string:category>/<string:league>.html")
-def meta(league=None, category=None):
+def meta():
     plot = None
-    if league is not None and category is not None:
-        meta_json = Path('./static/meta_plots/meta.json')
-        if meta_json.exists():
-            with open(meta_json, 'r') as f:
-                meta_plots: dict = json_load(f)
-                plot = {}
-                try:
-                    plots = meta_plots[category][league]
-                    if isinstance(plots, dict):
-                        for type, p in meta_plots[category][league].items():
-                            plot[type] = f"meta_plots/{p}"
-                    if isinstance(plots, str):
-                        plot['basic'] = f"meta_plots/{plots}"
-                except KeyError:
-                    abort(404)
+    meta_json = Path(CONFIG['METAPLOT_DIRECTORY'])
+    if meta_json.exists():
+        with open(meta_json, 'r') as f:
+            meta_plots: dict = json_load(f)
+            plot = {}
+            plot['parsed_summary'] = meta_plots.get('parsed_summary')
+            # try:
+            #     plots = meta_plots[category][league]
+            #     if isinstance(plots, dict):
+            #         for type, p in meta_plots[category][league].items():
+            #             plot[type] = f"meta_plots/{p}"
+            #     if isinstance(plots, str):
+            #         plot['basic'] = f"meta_plots/{plots}"
+            # except KeyError:
+            #     abort(404)
     # if league is None and category is not None:
     #     meta_json = Path('./static/meta_plots/meta.json')
     #     if meta_json.exists():
@@ -629,9 +628,8 @@ def meta(league=None, category=None):
     #                     plot["all"] = f"meta_plots/{p}"
     #             except KeyError:
     #                 abort(404)
-    navigators = get_meta_nav()
-    return render_template("meta.j2", navigators=navigators,
-                           league=league, plot=plot, category=category)
+    navigators = {}
+    return render_template("meta.j2", navigators=navigators, plot=plot)
 
 @app.errorhandler(404)
 def page_not_found(e):
