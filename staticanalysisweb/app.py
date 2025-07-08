@@ -257,8 +257,10 @@ def get_team_summary(team, dataset="default", postfix="") -> dict:
         summary_dict["pick_priority"] = url_path(data.get(f"pick_priority"), fourohfour=False)
         if postfix == "":
             summary_dict["pick_table"] = url_path(data.get("plot_picktables", None), fourohfour=False)
+            summary_dict["lossvs_opp"] = url_path(data.get("lossvs_opp", None), fourohfour=False)
         else:
             summary_dict["pick_table"] = None
+            summary_dict["lossvs_opp"] = None
 
         return summary_dict
 
