@@ -253,14 +253,17 @@ def get_team_summary(team, dataset="default", postfix="") -> dict:
         summary_dict["pair_picks"] = url_path(data.get(f"plot_pair_picks{postfix}"), fourohfour=False)
         summary_dict["pick_context"] = url_path(data.get(f"plot_pick_context{postfix}"), fourohfour=False)
         summary_dict["win_rate"] = url_path(data.get(f"plot_win_rate{postfix}"), fourohfour=False)
+        summary_dict["loss_rate"] = url_path(data.get(f"plot_loss_rate{postfix}"), fourohfour=False)
         summary_dict["rune"] = url_path(data.get(f"plot_rune_control{postfix}"), fourohfour=False)
         summary_dict["pick_priority"] = url_path(data.get(f"pick_priority"), fourohfour=False)
         if postfix == "":
             summary_dict["pick_table"] = url_path(data.get("plot_picktables", None), fourohfour=False)
             summary_dict["lossvs_opp"] = url_path(data.get("lossvs_opp", None), fourohfour=False)
+            summary_dict["plot_tormentor_sentries"] = url_path(data.get(f"plot_tormentor_sentries"), fourohfour=False)
         else:
             summary_dict["pick_table"] = None
             summary_dict["lossvs_opp"] = None
+            summary_dict["plot_tormentor_sentries"] = None
 
         return summary_dict
 

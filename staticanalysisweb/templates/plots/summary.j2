@@ -38,6 +38,10 @@
     <h2>Stack Summary<h2><br>
     <img class='img-fit' src={{summary["stack_summary"]}}><br>
 {% endif %}
+{% if summary["plot_tormentor_sentries"] is not none %}
+    <h2>Tormentor Sentries<h2><br>
+    <img class='img-fit' src={{summary["plot_tormentor_sentries"]}}><br>
+{% endif %}
 {% if summary["pair_picks"] is not none %}
     <h2>Pair Pick Rate<h2><br>
     <img class='img-fit' src={{summary["pair_picks"]}}><br>
@@ -49,6 +53,9 @@
 {% if summary["win_rate"] is not none %}
     <h2>Win Rates<h2><br>
     <img class='img-fit' src={{summary["win_rate"]}}><br>
+{% endif %}
+{% if summary["loss_rate"] is not none %}
+    <img class='img-fit' src={{summary["loss_rate"]}}><br>
 {% endif %}
 {% if summary["rune"] is not none %}
     <h2>Rune Control<h2><br>
