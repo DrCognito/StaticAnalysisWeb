@@ -188,8 +188,8 @@ def get_team_nav(team, dataset):
     # navigators['radiant'] += [
     #     ("Scans", url_for("plots.scan", team=team, side="radiant", dataset=dataset))
     # ]
-
-    navigators['summary'] = [("Summary", url_for("summary", team=team, dataset=dataset))]
+    navigators['summary'] = [("Twin Gates", url_for("plots.twin_gates", team=team, dataset=dataset))]
+    navigators['summary'] += [("Summary", url_for("summary", team=team, dataset=dataset))]
     navigators['summary'] += [("Summary (last 5)", url_for("summary", team=team, dataset=dataset, postfix="limit5"))]
     navigators['summary'] += [("Counters", url_for("counters", team=team, dataset=dataset))]
 

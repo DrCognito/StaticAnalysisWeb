@@ -174,3 +174,14 @@ class PDFMiniReport(AbstractPlot):
             report = pathlib.Path(report)
 
         return report
+
+
+class TwinGates(AbstractPlot):
+    def plot_vars(self):
+        data = self.metadata[self.dataset]
+        plots = {}
+        plots['twin_gate_transitions'] = data.get('plot_twingate_move')
+        if plots['twin_gate_transitions']:
+            plots['twin_gate_transitions'] = app.url_path(plots['twin_gate_transitions'])
+
+        return plots

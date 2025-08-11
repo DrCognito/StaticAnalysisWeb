@@ -1,0 +1,7 @@
+{% extends "team.j2" %}
+{% block vis %}
+{% if plots["twin_gate_transitions"] is not none %}
+<h2>Twin Gate Usage</h2>
+    <img src={{plots["twin_gate_transitions"]}}>
+{% endif %}
+{% endblock vis %}
