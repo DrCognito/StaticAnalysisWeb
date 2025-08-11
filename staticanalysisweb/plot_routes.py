@@ -302,7 +302,6 @@ def twin_gates(team, dataset):
     app.update_meta_dict()
     tg = pc.TwinGates(app.current_dir / app.metadata_dict[team]["path"], dataset)
     plots = tg.plot_vars()
-    print(plots)
     navigators = app.get_team_nav(team, dataset)
     return render_template(
         "plots/twin_gates.j2",
