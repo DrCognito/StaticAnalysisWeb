@@ -611,6 +611,7 @@ def meta():
             meta_plots: dict = json_load(f)
             plot = {}
             plot['parsed_summary'] = meta_plots.get('parsed_summary')
+            plot['vod_summary'] = meta_plots.get('vod_summary')
             # try:
             #     plots = meta_plots[category][league]
             #     if isinstance(plots, dict):
