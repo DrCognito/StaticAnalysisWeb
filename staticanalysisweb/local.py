@@ -10,8 +10,9 @@ prio_list = [
     "7_39b",
     "7_39c",
     "BootCamp0625",
-    "Scrims",
     "ESWC_25",
+    "7_39d",
+    "Scrims",
 ]
 
 def sort_prios(x: str) -> int:
