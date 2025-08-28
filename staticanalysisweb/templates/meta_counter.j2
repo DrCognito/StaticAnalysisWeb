@@ -1,0 +1,48 @@
+{% extends "base.j2" %}
+{% block content %}
+{% include "topbar.j2" %}
+{% with navigators=navigators, category=category %}
+{% include "sidebar.j2" %}
+{% endwith %}
+<div class="main">
+{% if hero is not none %}
+    <h2>High Winrate Heroes vs {{hero}}</h2>
+{% endif %}
+
+<button class="dropbtn">Select... ▼</button>
+<div class="dropdown-content" id="myDropdown">
+    {% for key, value in heroes.items() %}
+        <a href={{url_for("meta_counters", hero=key)}}>{{key}}</a>
+    {% endfor %}
+</div>
+<div>
+    {% if hero is not none %}
+        <img class='img-fit' src={{url_for('static', filename=heroes[hero])}}>
+    {% endif %}
+</div>
+</div>
+<script type="text/javascript">
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(e) {
+  if (!e.target.matches('.dropbtn')) {
+  var myDropdown = document.getElementById("myDropdown");
+    if (myDropdown.classList.contains('show')) {
+      myDropdown.classList.remove('show');
+    }
+  }
+}
+var dropdown = document.getElementsByClassName("dropbtn");
+var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+    console.log("arr");
+    document.getElementById("myDropdown").classList.toggle("show");
+  });
+}
+</script>
+{% endblock content %}
