@@ -2,31 +2,11 @@
 {% block content %}
 {% include "topbar.j2" %}
 {% with navigators=navigators, category=category %}
-{% include "sidebar_meta.j2" %}
+{% include "sidebar.j2" %}
 {% endwith %}
 <div class="main">
-{% if league is not none %}
-<h1>{{league}}</h1>
-<br>
-{% endif %}
 {% if plot is not none %}
-    {% if 'parsed_summary' in plot %}
-        <img class='img-fit' src={{url_for('static', filename=plot['parsed_summary'])}}>
-    {% endif %}
-    {% if 'vod_summary' in plot %}
-        <img class='img-fit' src={{url_for('static', filename=plot['vod_summary'])}}>
-    {% endif %}
-    {% if 'basic' in plot %}
-        <img class='img-fit' src={{url_for('static', filename=plot['basic'])}}>
-    {% endif %}
-    {% if 'all' in plot %}
-        <h2>All</h2>
-        <img class='img-fit' src={{url_for('static', filename=plot['all'])}}>
-    {% endif %}
-    {% if 'phases' in plot %}
-        <h2>Phases</h2>
-        <img class='img-fit' src={{url_for('static', filename=plot['phases'])}}>
-    {% endif %}
+    <img class='img-fit' src={{url_for('static', filename=plot)}}>
 {% endif %}
 </div>
 {% endblock content %}
