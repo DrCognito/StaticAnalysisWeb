@@ -49,21 +49,33 @@ def url_path(path_in: str, endpoint="static", fourohfour = True):
 
 def get_meta_nav():
     meta_json = Path(CONFIG['METAPLOT_DIRECTORY'])
-    # Categories of meta to add to navs
-    categories = ["Division 1", "Division 2", "Tournaments", "Pubs", "Pub Regions"]
-    navigators = {}
+    navigators = []
     if meta_json.exists():
         with open(meta_json, 'r') as f:
             meta_plots: dict = json_load(f)
-            for c in categories:
-                if c in meta_plots:
-                    navigators[c] = []
-                    for league in meta_plots[c]:
-                        navigators[c] += [(league, url_for("meta", category=c, league=league))]
-                    # navigators += [(None, None)]
+            if "parsed_summary" in meta_plots:
+                navigators += [
+                    ("Team Pubs",
+                     url_for("meta", meta_key="parsed_summary"))]
+            if "vod_summary" in meta_plots:
+                navigators += [
+                    ("Vod Pubs",
+                     url_for("meta", meta_key="vod_summary"))]
+            if "combined_summary" in meta_plots:
+                navigators += [
+                    ("Combined Pubs",
+                     url_for("meta", meta_key="combined_summary"))]
+            if meta_plots.get("counters"):
+                navigators += [(
+                    "Counters",
+                    url_for("meta_counters")
+                )]
 
     return navigators
 
+
+# @app.route("/meta/summary/<string:meta_key/")
+# def meta_plot(meta_key: str):
 
 def get_team_nav(team, dataset):
     """Produces name, url_for pairs for a teams sidebar.
@@ -603,39 +615,43 @@ def report(team, dataset="default"):
     )
 
 @app.route("/meta/")
-def meta():
-    plot = None
-    meta_json = Path(CONFIG['METAPLOT_DIRECTORY'])
+@app.route("/meta/<string:meta_key>/")
+def meta(meta_key: str | None = None):
+    plot = {}
+    meta_json = Path(CONFIG["METAPLOT_DIRECTORY"])
     if meta_json.exists():
         with open(meta_json, 'r') as f:
             meta_plots: dict = json_load(f)
-            plot = {}
-            plot['parsed_summary'] = meta_plots.get('parsed_summary')
-            plot['vod_summary'] = meta_plots.get('vod_summary')
-            # try:
-            #     plots = meta_plots[category][league]
-            #     if isinstance(plots, dict):
-            #         for type, p in meta_plots[category][league].items():
-            #             plot[type] = f"meta_plots/{p}"
-            #     if isinstance(plots, str):
-            #         plot['basic'] = f"meta_plots/{plots}"
-            # except KeyError:
-            #     abort(404)
-    # if league is None and category is not None:
-    #     meta_json = Path('./static/meta_plots/meta.json')
-    #     if meta_json.exists():
-    #         with open(meta_json, 'r') as f:
-    #             meta_plots: dict = json_load(f)
-    #             plot = {}
-    #             try:
-    #                 plots = meta_plots[category][league]
-                    
-    #                 for type, p in .items():
-    #                     plot["all"] = f"meta_plots/{p}"
-    #             except KeyError:
-    #                 abort(404)
-    navigators = {}
-    return render_template("meta.j2", navigators=navigators, plot=plot)
+            plot["parsed_summary"] = meta_plots.get("parsed_summary")
+            plot["vod_summary"] = meta_plots.get("vod_summary")
+            plot["combined_summary"] = meta_plots.get("combined_summary")
+            # # Counters
+            # plot["counters"] = meta_plots.get("counters", {})
+
+    navigators = get_meta_nav()
+    if meta_key is None:
+        # Just use the first one
+        return render_template("meta.j2", navigators=navigators, plot=plot["parsed_summary"])
+    else:
+        return render_template("meta.j2", navigators=navigators, plot=plot[meta_key])
+
+
+@app.route("/meta_counters/")
+@app.route("/meta_counters/<string:hero>")
+def meta_counters(hero: str | None = None):
+    meta_json = Path(CONFIG["METAPLOT_DIRECTORY"])
+
+    if meta_json.exists():
+        with open(meta_json, 'r') as f:
+            meta_plots: dict = json_load(f)
+            # Heroes list
+            heroes = dict(sorted(
+                meta_plots.get("counters", {}).items()
+            ))
+            plot = meta_plots["counters"].get(hero)
+    nav = get_meta_nav()
+    return render_template("meta_counter.j2", navigators=nav, heroes=heroes, plot=plot, hero=hero)
+
 
 @app.errorhandler(404)
 def page_not_found(e):
