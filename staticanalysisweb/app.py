@@ -637,7 +637,7 @@ def meta(meta_key: str | None = None):
 
 
 @app.route("/meta_counters/")
-@app.route("/meta_counters/<string:hero>")
+@app.route("/meta_counters/<string:hero>/")
 def meta_counters(hero: str | None = None):
     meta_json = Path(CONFIG["METAPLOT_DIRECTORY"])
 
