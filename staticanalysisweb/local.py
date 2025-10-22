@@ -7,11 +7,9 @@ import json
 # print(f"Root paths {app.root_path}")
 # print(f"Instance paths {app.instance_path}")
 prio_list = [
-    "7_39b",
-    "7_39c",
-    "BootCamp0625",
-    "ESWC_25",
-    "7_39d",
+    "7_39e",
+    "BLAST_S4",
+    "Parivision",
     "Scrims",
 ]
 
