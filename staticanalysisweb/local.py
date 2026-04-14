@@ -9,9 +9,9 @@ import json
 prio_list = [
     "PGL_S7",
     "7_41",
+    "7_41a",
+    "7_41b",
     "Scrims",
-    "DreamLeague28",
-    "BLAST_S6",
 ]
 
 def sort_prios(x: str) -> int:
