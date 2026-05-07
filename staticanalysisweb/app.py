@@ -47,29 +47,33 @@ def url_path(path_in: str, endpoint="static", fourohfour = True):
     return url_for(endpoint, filename=path_in)
 
 
-def get_meta_nav():
+def get_meta_nav(meta_label: str):
     meta_json = Path(CONFIG['METAPLOT_DIRECTORY'])
     navigators = []
     if meta_json.exists():
         with open(meta_json, 'r') as f:
             meta_plots: dict = json_load(f)
-            if "parsed_summary" in meta_plots:
-                navigators += [
-                    ("Team Pubs",
-                     url_for("meta", meta_key="parsed_summary"))]
-            if "vod_summary" in meta_plots:
-                navigators += [
-                    ("Vod Pubs",
-                     url_for("meta", meta_key="vod_summary"))]
-            if "combined_summary" in meta_plots:
-                navigators += [
-                    ("Combined Pubs",
-                     url_for("meta", meta_key="combined_summary"))]
-            if meta_plots.get("counters"):
-                navigators += [(
-                    "Counters",
-                    url_for("meta_counters")
-                )]
+            try:
+                meta_plots = meta_plots[meta_label]
+                if "combined_summary" in meta_plots:
+                    navigators += [
+                        ("Combined Pubs",
+                        url_for("meta", meta_label=meta_label, meta_key="combined_summary"))]
+                if "vod_summary" in meta_plots:
+                    navigators += [
+                        ("Vod Pubs",
+                        url_for("meta", meta_label=meta_label, meta_key="vod_summary"))]
+                if "parsed_summary" in meta_plots:
+                    navigators += [
+                        ("Team Pubs",
+                        url_for("meta", meta_label=meta_label, meta_key="parsed_summary"))]
+                if meta_plots.get("counters"):
+                    navigators += [(
+                        "Counters",
+                        url_for("meta_counters", meta_label=meta_label)
+                    )]
+            except KeyError:
+                return []
 
     return navigators
 
@@ -614,43 +618,46 @@ def report(team, dataset="default"):
         team=team,
     )
 
-@app.route("/meta/")
-@app.route("/meta/<string:meta_key>/")
-def meta(meta_key: str | None = None):
+@app.route("/meta/<string:meta_label>/<string:meta_key>/")
+def meta(meta_label: str, meta_key: str):
     plot = {}
     meta_json = Path(CONFIG["METAPLOT_DIRECTORY"])
     if meta_json.exists():
         with open(meta_json, 'r') as f:
             meta_plots: dict = json_load(f)
-            plot["parsed_summary"] = meta_plots.get("parsed_summary")
-            plot["vod_summary"] = meta_plots.get("vod_summary")
-            plot["combined_summary"] = meta_plots.get("combined_summary")
-            # # Counters
-            # plot["counters"] = meta_plots.get("counters", {})
+            try:
+                meta_section = meta_plots[meta_label]
+                plot["combined_summary"] = meta_section.get("combined_summary")
+                plot["parsed_summary"] = meta_section.get("parsed_summary")
+                plot["vod_summary"] = meta_section.get("vod_summary")
+            except KeyError:
+                return render_template("404.j2")
 
-    navigators = get_meta_nav()
-    if meta_key is None:
-        # Just use the first one
-        return render_template("meta.j2", navigators=navigators, plot=plot["parsed_summary"])
-    else:
-        return render_template("meta.j2", navigators=navigators, plot=plot[meta_key])
+    navigators = get_meta_nav(meta_label)
+    return render_template("meta.j2", navigators=navigators, plot=plot[meta_key])
 
 
-@app.route("/meta_counters/")
-@app.route("/meta_counters/<string:hero>/")
-def meta_counters(hero: str | None = None):
+@app.route("/meta_counters/<string:meta_label>/")
+@app.route("/meta_counters/<string:meta_label>/<string:hero>/")
+def meta_counters(meta_label:str, hero: str | None = None):
     meta_json = Path(CONFIG["METAPLOT_DIRECTORY"])
 
     if meta_json.exists():
         with open(meta_json, 'r') as f:
             meta_plots: dict = json_load(f)
-            # Heroes list
-            heroes = dict(sorted(
-                meta_plots.get("counters", {}).items()
-            ))
-            plot = meta_plots["counters"].get(hero)
-    nav = get_meta_nav()
-    return render_template("meta_counter.j2", navigators=nav, heroes=heroes, plot=plot, hero=hero)
+            try:
+                meta_plots = meta_plots[meta_label]
+                # Heroes list
+                heroes = dict(sorted(
+                    meta_plots.get("counters", {}).items()
+                ))
+                plot = meta_plots["counters"].get(hero)
+            except KeyError:
+                render_template("404.j2")
+    nav = get_meta_nav(meta_label)
+    return render_template(
+        "meta_counter.j2", navigators=nav, heroes=heroes, plot=plot, hero=hero, 
+        label=meta_label)
 
 
 @app.errorhandler(404)

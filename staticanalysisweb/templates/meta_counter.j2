@@ -12,7 +12,7 @@
 <button class="dropbtn">Select... ▼</button>
 <div class="dropdown-content" id="myDropdown">
     {% for key, value in heroes.items() %}
-        <a href={{url_for("meta_counters", hero=key)}}>{{key}}</a>
+        <a href={{url_for("meta_counters", meta_label=label, hero=key)}}>{{key}}</a>
     {% endfor %}
 </div>
 <div>
