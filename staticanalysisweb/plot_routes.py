@@ -4,6 +4,7 @@ from json import load as json_load
 # from .app import current_dir, update_meta_dict, metadata_dict, get_team_nav
 import staticanalysisweb.app as app
 import staticanalysisweb.plot_class as pc
+from staticanalysisweb import CONFIG
 
 plot_routes = Blueprint("plots", __name__)
 
@@ -148,7 +149,8 @@ def tormentor_routes(team, dataset, side):
 def stacks_plot(team, dataset, side):
     app.update_meta_dict()
     stacks = pc.Stacks(
-        app.current_dir / app.metadata_dict[team]["path"], dataset
+        app.current_dir / app.metadata_dict[team]["path"], dataset,
+        CONFIG['GLOBAL_JSON']
     )
     navigators = app.get_team_nav(team, dataset)
     try:

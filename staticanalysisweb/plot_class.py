@@ -4,10 +4,21 @@ import staticanalysisweb.app as app
 
 
 class AbstractPlot:
-    def __init__(self, metadata_path: pathlib.Path, dataset: str):
+    def __init__(
+        self, metadata_path: pathlib.Path, dataset: str,
+        global_data:pathlib.Path | None = None):
         with open(metadata_path, "r") as file:
             self.metadata = js.load(file)
         self.dataset = dataset
+        
+        if global_data is not None:
+            with open(global_data, "r") as file:
+                try:
+                    self.global_data = js.load(file)[dataset]
+                except KeyError:
+                    self.global_data = None
+        else:
+            self.global_data = None
 
     def plot_vars(self, side: str):
         pass
@@ -101,6 +112,12 @@ class Stacks(AbstractPlot):
             plots["plot_stack"] = app.url_path(data[f"plot_{side}_stacks"])
         if data.get(f"table_{side}_stacks") is not None:
             plots["table_stack"] = data[f"table_{side}_stacks"]
+        
+        if self.global_data is not None and "stacks" in self.global_data:
+            plots["global_plot_stack"] = (
+                f"meta_plots/{self.global_data["stacks"][f"plot_{side}_stacks_global"]}"
+                )
+            plots["global_table_stack"] = self.global_data["stacks"][f"table_{side}_stacks"]
 
         return plots
 
