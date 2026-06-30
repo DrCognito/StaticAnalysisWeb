@@ -8,6 +8,7 @@
     {{plots["table_stack"]}}
 {% endif %}
 {% if plots.global_plot_stack is defined %}
+<h3>Global</h3>
     <img src={{url_for('static', filename=plots["global_plot_stack"])}}><br>
 {% endif %}
 {% if plots.global_table_stack is defined %}
