@@ -302,7 +302,9 @@ def pdf_mini_report(team, dataset):
 @plot_routes.route("/<string:team>/<string:dataset>/twin_gates.html")
 def twin_gates(team, dataset):
     app.update_meta_dict()
-    tg = pc.TwinGates(app.current_dir / app.metadata_dict[team]["path"], dataset)
+    tg = pc.TwinGates(
+        app.current_dir / app.metadata_dict[team]["path"], dataset,
+        CONFIG['GLOBAL_JSON'])
     plots = tg.plot_vars()
     navigators = app.get_team_nav(team, dataset)
     return render_template(

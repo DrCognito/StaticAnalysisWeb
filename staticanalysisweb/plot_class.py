@@ -200,5 +200,8 @@ class TwinGates(AbstractPlot):
         plots['twin_gate_transitions'] = data.get('plot_twingate_move')
         if plots['twin_gate_transitions']:
             plots['twin_gate_transitions'] = app.url_path(plots['twin_gate_transitions'])
-
+        if self.global_data is not None and 'gates' in self.global_data:
+            plots['global_twin_gate_transitions'] = (
+                f"meta_plots/{self.global_data['gates'].get('global_twingate_move')}"
+                )
         return plots
