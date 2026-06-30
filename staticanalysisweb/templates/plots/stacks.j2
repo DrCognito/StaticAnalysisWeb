@@ -7,10 +7,10 @@
 {% if plots["table_stack"] is not none %}
     {{plots["table_stack"]}}
 {% endif %}
-{% if plots["global_plot_stack"] is not none %}
+{% if plots.global_plot_stack is defined %}
     <img src={{url_for('static', filename=plots["global_plot_stack"])}}><br>
 {% endif %}
-{% if plots["global_table_stack"] is not none %}
+{% if plots.global_table_stack is defined %}
     {{plots["global_table_stack"]}}
 {% endif %}
 {% endblock vis %}
